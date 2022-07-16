@@ -21,11 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Ignore default files created by IntelliJ
-/.idea/.gitignore
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/sem3-eproject-notes.iml
-/.idea/vcs.xml
-/.idea/git_toolbox_prj.xml
