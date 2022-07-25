@@ -1,0 +1,38 @@
+.spaceComponent {
+    height: 100px;
+}
+
+.imgIntroLeft {
+    max-width: 800px;
+    max-height: 700px;
+    border-radius: 43% 43% 0 0; 
+}
+
+.imgIntroRight {
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.imgIntroProject {
+    max-width: 680px;
+}
+
+.imgCustomer {
+    max-width: 400px;
+    border-radius: 20%;
+}
+
+.introductionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.centerContent {
+    align-items: center;
+    text-align: center;
+}
