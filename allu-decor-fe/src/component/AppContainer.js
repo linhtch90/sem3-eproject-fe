@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import AboutUsDemo from '../sub-component/AboutUsDemo';
 import HomeDemo from '../sub-component/HomeDemo';
 
+import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -17,6 +18,7 @@ const AppContainer = () => {
         <Routes>
           <Route path="/" element={<HomeDemo />} />
           <Route path="aboutus" element={<AboutUsDemo />} />
+          <Route path="faq" element={<FaqPage />} />
         </Routes>
         <Footer />
       </HashRouter>

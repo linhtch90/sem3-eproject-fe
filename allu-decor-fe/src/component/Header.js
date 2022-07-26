@@ -18,7 +18,7 @@ const MENU_ITEMS = [
   { label: 'Projects', key: 'projects', icon: <FundProjectionScreenOutlined /> },
   { label: 'Products', key: 'products', icon: <ShopOutlined /> },
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
-  { label: 'FaQs', key: 'faqs', icon: <CommentOutlined /> },
+  { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
 ];
 
