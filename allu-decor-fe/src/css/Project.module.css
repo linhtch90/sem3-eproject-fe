@@ -1,0 +1,76 @@
+
+/* css upcoming  */
+
+.project_released {
+  height: 400px;
+  background: rgb(253, 250, 250);
+  box-sizing: border-box;
+  margin-bottom: 100px;
+}
+
+
+.upcoming_item {
+  height: 360px;
+  background: #364d79  !important;
+  
+}
+ 
+.img_card {
+  height: 380px;  
+}
+ 
+.item_card {
+  height: 600px;
+}
+ 
+ .upcoming_content {
+     padding-left: 30px;
+ }
+
+ .upcoming_img {
+  display:   block;
+  height: 260px;
+ }
+
+ .upcoming_img_item {
+  display: block;
+  height: 280px !important;
+ }
+ 
+/* component ongoimng project  */
+ 
+.project_ongoing {
+  width: 100%;
+  height: 640px;
+  margin-bottom: 50px;
+}
+
+.title_ongoing {
+  margin-left: 40%;
+}
+
+.img_ongoing {
+  display: block;
+  max-width: 100%;
+   height: auto;
+}
+
+.contentStyle {
+  height: 570px;
+  color: #fff;
+  background: #364d79;
+}
+ 
+.card {
+  max-width: 95%;
+  height : 100%;
+  box-sizing: border-box
+}
+
+.ongoing_image_card {
+  display: block;
+  width: 485px !important;
+  height: 300px !important; 
+ 
+}
+ 

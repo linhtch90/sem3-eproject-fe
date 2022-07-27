@@ -3,13 +3,18 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import AboutUsDemo from '../sub-component/AboutUsDemo';
+import ProjectDetail from '../sub-component/ProjectDetail';
 
 import AdminCustomerReview from './AdminCustomerReview';
+import AdminAboutUs from './AdminAboutUs';
+import AdminContactInfo from './AdminContactInfo';
+import AdminDomain from './AdminDomain';
 import AdminHome from './AdminHome';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
 import ClientInvoiceManagement from './ClientInvoiceManagement';
+import AdminService from './AdminService';
 import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
@@ -19,6 +24,7 @@ import ProductCart from './ProductCart';
 import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
+import ProjectPage from './ProjectPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UnauthorizedPage from './UnauthorizedPage';
@@ -37,12 +43,19 @@ const AppContainer = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="aboutus" element={<AboutUsDemo />} />
               <Route path="faq" element={<FaqPage />} />
+              <Route path="project" element={<ProjectPage />}>
+                <Route path="project/projectDetail/id?id=:projectId" element={<ProjectDetail />} />
+              </Route>
 
               <Route path="admin" element={<AdminPage />}>
                 <Route index element={<AdminHome />} />
                 <Route path="project" element={<AdminProject />} />
                 <Route path="product" element={<AdminProduct />} />
                 <Route path="customerreview" element={<AdminCustomerReview />} />
+                <Route path="contactinfo" element={<AdminContactInfo />} />
+                <Route path="aboutu" element={<AdminAboutUs />} />
+                <Route path="domain" element={<AdminDomain />} />
+                <Route path="service" element={<AdminService />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>

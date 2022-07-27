@@ -10,6 +10,10 @@ const adminMenu = [
   { label: <Link to="/admin/project">Projects</Link>, key: 'project', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/product">Products</Link>, key: 'product', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/customerreview">Customer Reviews</Link>, key: 'customerreview', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/contactinfo">ContactInfo</Link>, key: 'contactinfo', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/aboutu">AboutUs</Link>, key: 'aboutu', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/domain">Domain</Link>, key: 'domain', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/service">Service</Link>, key: 'service', icon: <ProjectOutlined /> },
 ];
 
 const AdminPage = () => {
