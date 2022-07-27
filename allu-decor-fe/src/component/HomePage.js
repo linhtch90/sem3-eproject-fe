@@ -8,7 +8,7 @@ import newProductImageUrl from '../images/newproducts.jpg';
 import styles from '../css/HomePage.module.css';
 
 //=====Introduction Component=====
-function IntroductionComponent() {
+const IntroductionComponent = () => {
   return (
     <Row>
       <Col span={15}>
@@ -32,10 +32,10 @@ function IntroductionComponent() {
       </Col>
     </Row>
   );
-}
+};
 
 //=====Project Component=====
-function IntroProjectComponent() {
+const IntroProjectComponent = () => {
   return (
     <Row align="middle" gutter={10}>
       <Col span={9}>
@@ -55,19 +55,19 @@ function IntroProjectComponent() {
       </Col>
     </Row>
   );
-}
+};
 
 //=====Products Component=====
-function ProductItemComponent({ imgurl, title }) {
+const ProductItemComponent = ({ imgurl, title }) => {
   return (
     <Card hoverable>
       <img width="200" src={imgurl} />
       <p>{title}</p>
     </Card>
   );
-}
+};
 
-function ProductsComponent() {
+const ProductsComponent = () => {
   return (
     <Row>
       <div className={styles.introductionContent}>
@@ -93,10 +93,10 @@ function ProductsComponent() {
       </Col>
     </Row>
   );
-}
+};
 
 //=====Customer Review Component=====
-function CustomerReviewComponent() {
+const CustomerReviewComponent = () => {
   return (
     <Carousel autoplay>
       <div>
@@ -135,17 +135,17 @@ function CustomerReviewComponent() {
       </div>
     </Carousel>
   );
-}
+};
 
 //=====Contact Us Component=====
-function ContactUsForm() {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+const ContactUsForm = () => {
+  // const onFinish = (values) => {
+  //   console.log('Success:', values);
+  // };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
 
   return (
     <Form
@@ -156,8 +156,8 @@ function ContactUsForm() {
       wrapperCol={{
         span: 16,
       }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      // onFinish={onFinish}
+      // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item
@@ -211,7 +211,7 @@ function ContactUsForm() {
       </Form.Item>
     </Form>
   );
-}
+};
 
 function ContactUsComponent() {
   return (
