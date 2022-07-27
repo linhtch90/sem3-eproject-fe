@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Collapse, Spin } from 'antd';
+import { Collapse, Row, Spin } from 'antd';
 
 import { getAllFaqPairs } from '../feature/faq/faqSlice';
 
@@ -18,17 +18,19 @@ const FaqPage = () => {
     <div>
       <h1>Faq page</h1>
       <div>
-        <Collapse>
-          {storedFaqPairs ? (
-            storedFaqPairs.map((pair, index) => (
+        {storedFaqPairs ? (
+          <Collapse>
+            {storedFaqPairs.map((pair, index) => (
               <Panel header={pair.question} key={index}>
                 <p>{pair.answer}</p>
               </Panel>
-            ))
-          ) : (
+            ))}
+          </Collapse>
+        ) : (
+          <Row justify="center">
             <Spin size="large" />
-          )}
-        </Collapse>
+          </Row>
+        )}
       </div>
     </div>
   );
