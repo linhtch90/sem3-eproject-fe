@@ -2,9 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const adminToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkMDk2YjY2LWVmYTctNGVhZS05MDJlLTAyNzZlYzM4NTRmNSIsIm5iZiI6MTY1ODg0NTQ1MCwiZXhwIjoxNjU5NDUwMjUwLCJpYXQiOjE2NTg4NDU0NTB9.JzNpcSONLLv0_bN9NZVm9_iyOIYz-SBJY3Us4W9pBac';
-
 const getAllFaqPairsUrl = 'https://localhost:44302/api/faq';
 
 const initialState = {
@@ -16,7 +13,7 @@ export const getAllFaqPairs = createAsyncThunk('/api/faq', async (thunkApi) => {
     method: 'get',
     url: getAllFaqPairsUrl,
     headers: {
-      Authorization: `Bearer ${adminToken}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
 

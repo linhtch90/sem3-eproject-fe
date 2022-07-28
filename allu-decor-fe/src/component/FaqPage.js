@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Collapse, Row, Spin } from 'antd';
 
-import { getAllFaqPairs } from '../feature/faq/faqSlice';
+import { getAllFaqPairs } from '../feature/faq/FaqSlice';
 
 const { Panel } = Collapse;
 
