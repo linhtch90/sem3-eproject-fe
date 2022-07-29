@@ -84,8 +84,8 @@ const SignUp = () => {
     <Checkbox>Remember me</Checkbox>
   </Form.Item> */}
 
-        <Form.Item wrapperCol={{ span: 4, offset: 10 }}>
-          <Button type="primary" htmlType="submit" block icon={<UserAddOutlined />}>
+        <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
+          <Button type="primary" shape="round" htmlType="submit" block icon={<UserAddOutlined />}>
             Sign Up
           </Button>
         </Form.Item>

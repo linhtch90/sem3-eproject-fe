@@ -51,8 +51,8 @@ const SignIn = () => {
           <Checkbox>Remember me</Checkbox>
         </Form.Item> */}
 
-        <Form.Item wrapperCol={{ span: 4, offset: 10 }}>
-          <Button type="primary" htmlType="submit" block icon={<LoginOutlined />}>
+        <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
+          <Button type="primary" shape="round" htmlType="submit" block icon={<LoginOutlined />}>
             Sign In
           </Button>
         </Form.Item>

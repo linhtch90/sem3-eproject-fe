@@ -9,11 +9,12 @@ import {
   HomeOutlined,
   LoginOutlined,
   LogoutOutlined,
+  SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
-import { Button, Col, Menu, Row, Space } from 'antd';
+import { Avatar, Button, Col, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
 
@@ -26,6 +27,16 @@ const MENU_ITEMS = [
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
+];
+
+const MENU_ITEMS_ADMIN = [
+  { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
+  { label: 'Projects', key: 'projects', icon: <FundProjectionScreenOutlined /> },
+  { label: 'Products', key: 'products', icon: <ShopOutlined /> },
+  { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
+  { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
+  { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
+  { label: <Link to="admin">Admin</Link>, key: 'admin', icon: <SettingOutlined /> },
 ];
 
 const Header = () => {
@@ -64,6 +75,7 @@ const Header = () => {
 
               {user ? (
                 <>
+                  <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
                   <Button type="primary" shape="round" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
                     Sign Out
                   </Button>
@@ -82,7 +94,11 @@ const Header = () => {
             </Space>
           </Row>
           <Row>
-            <Menu onClick={handleClick} selectedKeys={[currentMenu]} mode="horizontal" items={MENU_ITEMS} />
+            {user && user.role === 'Admin' ? (
+              <Menu onClick={handleClick} selectedKeys={[currentMenu]} mode="horizontal" items={MENU_ITEMS_ADMIN} />
+            ) : (
+              <Menu onClick={handleClick} selectedKeys={[currentMenu]} mode="horizontal" items={MENU_ITEMS} />
+            )}
           </Row>
         </Col>
       </Row>
