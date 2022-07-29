@@ -14,7 +14,7 @@ import {
   ShoppingOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
-import { Avatar, Button, Col, Menu, Row, Space } from 'antd';
+import { Avatar, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
 
@@ -64,6 +64,21 @@ const Header = () => {
     navigate('/');
   };
 
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <Button type="primary" shape="round" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
+              Sign Out
+            </Button>
+          ),
+        },
+      ]}
+    />
+  );
+
   return (
     <div>
       <Row justify="space-between" className={styles.headerSpace}>
@@ -75,10 +90,9 @@ const Header = () => {
 
               {user ? (
                 <>
-                  <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
-                  <Button type="primary" shape="round" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
-                    Sign Out
-                  </Button>
+                  <Dropdown overlay={menu} placement="bottomRight">
+                    <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
+                  </Dropdown>
                 </>
               ) : (
                 <>

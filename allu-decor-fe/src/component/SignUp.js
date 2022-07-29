@@ -1,11 +1,42 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import axios from 'axios';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+
+  const signUpUrl = 'https://localhost:44302/api/user';
+
+  const handleOnFinish = async (values) => {
+    const response = await axios({
+      method: 'post',
+      url: signUpUrl,
+      data: {
+        id: '',
+        firstname: values.firstname,
+        lastname: values.lastname,
+        address: values.address,
+        district: values.district,
+        city: values.city,
+        role: '',
+        phone: values.phone,
+        email: values.email,
+        password: values.password,
+      },
+    });
+
+    if (response.data.message === 'User created') {
+      navigate('/user/createusersuccess');
+    }
+  };
+
   return (
     <div>
       <Form
+        form={form}
         name="basic"
         layout="vertical"
         initialValues={{ remember: true }}
@@ -18,6 +49,7 @@ const SignUp = () => {
           span: 8,
           offset: 8,
         }}
+        onFinish={handleOnFinish}
       >
         <Form.Item
           label="Firstname"

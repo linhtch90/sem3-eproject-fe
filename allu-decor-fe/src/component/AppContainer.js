@@ -9,6 +9,7 @@ import Header from './Header';
 import HomePage from './HomePage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import UserSignUpSuccess from './UserSignUpSuccess';
 
 import styles from '../css/AppContainer.module.css';
 
@@ -23,6 +24,7 @@ const AppContainer = () => {
           <Route path="faq" element={<FaqPage />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
         </Routes>
         <Footer />
       </HashRouter>
