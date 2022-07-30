@@ -1,4 +1,7 @@
-.appWidth {
+.appMargin {
     margin: auto;
-    width: 75%;
+}
+
+.bodyWidth {
+    width: 90%;
 }

@@ -27,6 +27,7 @@ const MENU_ITEMS = [
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
+  { label: <Link to="admin">Admin</Link>, key: 'admin', icon: <SettingOutlined /> },
 ];
 
 const MENU_ITEMS_ADMIN = [
@@ -80,39 +81,56 @@ const Header = () => {
   );
 
   return (
-    <div>
-      <Row justify="space-between" className={styles.headerSpace}>
-        <Col>Logo</Col>
-        <Col>
+    <div className={styles.headerContainer}>
+      <Row className={styles.headerSpace}>
+        <Col span={4}>Logo</Col>
+        <Col span={20}>
           <Row justify="end">
-            <Space size={'middle'}>
-              <Button type="primary" shape="circle" icon={<ShoppingOutlined />}></Button>
+            <Space direction="vertical" size={'middle'}>
+              <Row justify="end">
+                <Space size={'middle'}>
+                  <Button type="primary" shape="circle" icon={<ShoppingOutlined />}></Button>
 
-              {user ? (
-                <>
-                  <Dropdown overlay={menu} placement="bottomRight">
-                    <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
-                  </Dropdown>
-                </>
-              ) : (
-                <>
-                  <Button type="primary" shape="round" onClick={handleSignInClick} icon={<LoginOutlined />}>
-                    Sign In
-                  </Button>
+                  {user ? (
+                    <>
+                      <Dropdown overlay={menu} placement="bottomRight">
+                        <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
+                      </Dropdown>
+                    </>
+                  ) : (
+                    <>
+                      <Button type="primary" shape="round" onClick={handleSignInClick} icon={<LoginOutlined />}>
+                        Sign In
+                      </Button>
 
-                  <Button type="primary" shape="round" onClick={handleSignUpClick} icon={<UserAddOutlined />}>
-                    Sign Up
-                  </Button>
-                </>
-              )}
+                      <Button type="primary" shape="round" onClick={handleSignUpClick} icon={<UserAddOutlined />}>
+                        Sign Up
+                      </Button>
+                    </>
+                  )}
+                </Space>
+              </Row>
+              <Row justify="end">
+                {user && user.role === 'Admin' ? (
+                  <Menu
+                    theme="dark"
+                    onClick={handleClick}
+                    selectedKeys={[currentMenu]}
+                    mode="horizontal"
+                    items={MENU_ITEMS_ADMIN}
+                  />
+                ) : (
+                  <Menu
+                    theme="dark"
+                    onClick={handleClick}
+                    selectedKeys={[currentMenu]}
+                    mode="horizontal"
+                    disabledOverflow
+                    items={MENU_ITEMS}
+                  />
+                )}
+              </Row>
             </Space>
-          </Row>
-          <Row>
-            {user && user.role === 'Admin' ? (
-              <Menu onClick={handleClick} selectedKeys={[currentMenu]} mode="horizontal" items={MENU_ITEMS_ADMIN} />
-            ) : (
-              <Menu onClick={handleClick} selectedKeys={[currentMenu]} mode="horizontal" items={MENU_ITEMS} />
-            )}
           </Row>
         </Col>
       </Row>

@@ -1,4 +1,11 @@
+.headerContainer {
+    background-color: #001529;
+}
+
 .headerSpace {
+    margin: auto;
+    width: 90%;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    background-color: #001529;
 }

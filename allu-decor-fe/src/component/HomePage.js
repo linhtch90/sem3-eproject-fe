@@ -235,7 +235,7 @@ function ContactUsComponent() {
 //=====Render Home Page=====
 const HomePage = () => {
   return (
-    <>
+    <div style={{ margin: 'auto', width: '90%' }}>
       <IntroductionComponent />
       <div className={styles.spaceComponent}></div>
       <IntroProjectComponent />
@@ -245,7 +245,7 @@ const HomePage = () => {
       <CustomerReviewComponent />
       <div className={styles.spaceComponent}></div>
       <ContactUsComponent />
-    </>
+    </div>
   );
 };
 
