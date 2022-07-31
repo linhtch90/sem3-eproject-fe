@@ -5,11 +5,13 @@ import axios from 'axios';
 const getAllProjectsUrl = 'https://localhost:44302/api/project';
 const createNewProjectUrl = 'https://localhost:44302/api/project/createproject';
 const updateProjectUrl = 'https://localhost:44302/api/project/updateproject';
+const deleteProjectUrl = 'https://localhost:44302/api/project/deleteproject';
 
 const initialState = {
   projects: null,
   createProjectStatus: null,
   updateProjectStatus: null,
+  deleteProjectStatus: null,
 };
 
 export const getAllProjects = createAsyncThunk('/api/project', async (thunkApi) => {
@@ -18,7 +20,7 @@ export const getAllProjects = createAsyncThunk('/api/project', async (thunkApi) 
     url: getAllProjectsUrl,
   });
 
-  console.log('Getting all projects');
+  response.data.responseObject.map((item) => (item.key = item.id));
 
   return response.data.responseObject;
 });
@@ -67,6 +69,21 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const deleteProject = createAsyncThunk('/api/project/deleteproject', async ({ id }, thunkApi) => {
+  const response = await axios({
+    method: 'post',
+    url: deleteProjectUrl,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: {
+      id,
+    },
+  });
+
+  return response.data.status;
+});
+
 export const adminProjectSlice = createSlice({
   name: 'adminProjectSlice',
   initialState,
@@ -80,6 +97,9 @@ export const adminProjectSlice = createSlice({
     });
     builder.addCase(updateProject.fulfilled, (state, action) => {
       state.updateProjectStatus = action.payload;
+    });
+    builder.addCase(deleteProject.fulfilled, (state, action) => {
+      state.deleteProjectStatus = action.payload;
     });
   },
 });

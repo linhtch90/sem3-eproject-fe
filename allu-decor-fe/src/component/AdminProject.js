@@ -3,36 +3,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CarryOutOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Table, Upload } from 'antd';
 
-import { createNewProject, getAllProjects, updateProject } from '../feature/admin_project/AdminProjectSlice';
+import {
+  createNewProject,
+  deleteProject,
+  getAllProjects,
+  updateProject,
+} from '../feature/admin_project/AdminProjectSlice';
 
 const AdminProject = () => {
   const dispatch = useDispatch();
+  const [reloadDataTable, setReloadDataTable] = React.useState(true);
 
   // Form
+  const [form] = Form.useForm();
+
   const handleOnFinishCreate = (values) => {
     values.image = '';
-
     values.upload.map(({ originFileObj }) => {
       const reader = new FileReader();
       reader.onload = function (evt) {
         values.image += evt.target.result;
+        const { name, status, image, description } = values;
+
+        dispatch(
+          createNewProject({
+            name,
+            status,
+            image,
+            description,
+          })
+        );
+
+        setReloadDataTable(!reloadDataTable);
+        form.resetFields();
       };
       reader.readAsDataURL(originFileObj);
     });
-
-    console.log(values.image);
-
-    const { name, status, image, description } = values;
-
-    dispatch(
-      createNewProject({
-        name,
-        status,
-        image,
-        description,
-      })
-    );
-    dispatch(getAllProjects());
   };
 
   const handleOnFinishUpdate = (values) => {
@@ -42,24 +48,32 @@ const AdminProject = () => {
       const reader = new FileReader();
       reader.onload = function (evt) {
         values.images += evt.target.result;
+        const { name, status, image, description } = values;
+
+        dispatch(
+          updateProject({
+            id: selectedRow[0].id,
+            name,
+            status,
+            image,
+            description,
+          })
+        );
+
+        setReloadDataTable(!reloadDataTable);
+        form.resetFields();
       };
       reader.readAsDataURL(originFileObj);
     });
-
-    const { name, status, image, description } = values;
-
-    dispatch(
-      updateProject({
-        id: selectedRow[0].id,
-        name,
-        status,
-        image,
-        description,
-      })
-    );
-    dispatch(getAllProjects());
   };
 
+  const handleDeleteProject = () => {
+    dispatch(deleteProject({ id: selectedRow[0].id }));
+    setReloadDataTable(!reloadDataTable);
+    form.resetFields();
+  };
+
+  // Do not change this
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -78,8 +92,10 @@ const AdminProject = () => {
     { title: 'Description', dataIndex: 'description' },
   ];
 
-  const onSelectChange = (newSelectedRow) => {
+  const onSelectChange = (key, newSelectedRow) => {
     setSelectedRow(newSelectedRow);
+    const { name, status, description } = newSelectedRow[0];
+    form.setFieldsValue({ name, status, description });
   };
 
   const rowSelection = {
@@ -89,7 +105,7 @@ const AdminProject = () => {
 
   React.useEffect(() => {
     dispatch(getAllProjects());
-  }, []);
+  }, [reloadDataTable]);
 
   return (
     <div style={{ padding: 16 }}>
@@ -103,6 +119,7 @@ const AdminProject = () => {
           <Col span={8}>
             <h1>Project Info</h1>
             <Form
+              form={form}
               name="basic"
               layout="vertical"
               initialValues={{ remember: true }}
@@ -144,28 +161,30 @@ const AdminProject = () => {
               </Form.Item>
 
               {selectedRow.length > 0 ? (
-                <Form.Item wrapperCol={{ span: 22, offset: 0 }}>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    htmlType="submit"
-                    block
-                    // onClick={handleUpdateProject}
-                    icon={<CarryOutOutlined />}
-                  >
-                    Update Project
-                  </Button>
-                </Form.Item>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
+                      Update
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<CarryOutOutlined />}
+                      onClick={handleDeleteProject}
+                    >
+                      Delete
+                    </Button>
+                  </Form.Item>
+                </Row>
               ) : (
                 <Form.Item wrapperCol={{ span: 22, offset: 0 }}>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    htmlType="submit"
-                    block
-                    // onClick={handleCreateProject}
-                    icon={<CarryOutOutlined />}
-                  >
+                  <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
                     Create Project
                   </Button>
                 </Form.Item>
