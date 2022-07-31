@@ -117,6 +117,7 @@ const Header = () => {
                     onClick={handleClick}
                     selectedKeys={[currentMenu]}
                     mode="horizontal"
+                    disabledOverflow
                     items={MENU_ITEMS_ADMIN}
                   />
                 ) : (

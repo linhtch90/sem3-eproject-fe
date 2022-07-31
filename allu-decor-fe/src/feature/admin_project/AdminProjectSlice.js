@@ -2,44 +2,86 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const signInUrl = 'https://localhost:44302/api/user/authenticate';
+const getAllProjectsUrl = 'https://localhost:44302/api/project';
+const createNewProjectUrl = 'https://localhost:44302/api/project/createproject';
+const updateProjectUrl = 'https://localhost:44302/api/project/updateproject';
 
 const initialState = {
-  user: null,
+  projects: null,
+  createProjectStatus: null,
+  updateProjectStatus: null,
 };
 
-export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email, password }, thunkApi) => {
+export const getAllProjects = createAsyncThunk('/api/project', async (thunkApi) => {
   const response = await axios({
-    method: 'post',
-    url: signInUrl,
-    data: {
-      email,
-      password,
-    },
+    method: 'get',
+    url: getAllProjectsUrl,
   });
 
-  if (response.data) {
-    localStorage.setItem('token', response.data.token);
-  }
+  console.log('Getting all projects');
 
-  return response.data;
+  return response.data.responseObject;
 });
+
+export const createNewProject = createAsyncThunk(
+  '/api/project/createproject',
+  async ({ name, status, image, description }, thunkApi) => {
+    const response = await axios({
+      method: 'post',
+      url: createNewProjectUrl,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: {
+        id: '',
+        name,
+        status,
+        image,
+        description,
+      },
+    });
+
+    return response.data.status;
+  }
+);
+
+export const updateProject = createAsyncThunk(
+  '/api/project/updateproject',
+  async ({ id, name, status, image, description }, thunkApi) => {
+    const response = await axios({
+      method: 'post',
+      url: updateProjectUrl,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: {
+        id,
+        name,
+        status,
+        image,
+        description,
+      },
+    });
+
+    return response.data.status;
+  }
+);
 
 export const adminProjectSlice = createSlice({
   name: 'adminProjectSlice',
   initialState,
-  reducers: {
-    resetUser: (state) => {
-      state.user = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(signIn.fulfilled, (state, action) => {
-      state.user = action.payload;
+    builder.addCase(getAllProjects.fulfilled, (state, action) => {
+      state.projects = action.payload;
+    });
+    builder.addCase(createNewProject.fulfilled, (state, action) => {
+      state.createProjectStatus = action.payload;
+    });
+    builder.addCase(updateProject.fulfilled, (state, action) => {
+      state.updateProjectStatus = action.payload;
     });
   },
 });
-
-export const { resetUser } = adminProjectSlice.actions;
 
 export default adminProjectSlice.reducer;
