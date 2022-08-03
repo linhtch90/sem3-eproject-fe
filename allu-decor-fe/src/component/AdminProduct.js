@@ -185,7 +185,11 @@ const AdminProduct = () => {
                 <Input.TextArea showCount maxLength={500} />
               </Form.Item>
 
-              <Form.Item label="Select Domain" name="domainid">
+              <Form.Item
+                label="Select Domain"
+                name="domainid"
+                rules={[{ required: true, message: 'Please select product domain!' }]}
+              >
                 <Select>
                   {domains
                     ? domains.map((domain) => (
@@ -197,7 +201,11 @@ const AdminProduct = () => {
                 </Select>
               </Form.Item>
 
-              <Form.Item label="Select Service" name="serviceid">
+              <Form.Item
+                label="Select Service"
+                name="serviceid"
+                rules={[{ required: true, message: 'Please select product service!' }]}
+              >
                 <Select>
                   {services
                     ? services.map((service) => (
