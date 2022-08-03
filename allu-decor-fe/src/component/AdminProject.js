@@ -13,6 +13,11 @@ import {
 const AdminProject = () => {
   const dispatch = useDispatch();
   const [reloadDataTable, setReloadDataTable] = React.useState(true);
+  const [selectedRow, setSelectedRow] = React.useState([]);
+
+  React.useEffect(() => {
+    dispatch(getAllProjects());
+  }, [reloadDataTable]);
 
   // Form
   const [form] = Form.useForm();
@@ -44,32 +49,51 @@ const AdminProject = () => {
   const handleOnFinishUpdate = (values) => {
     values.images = '';
 
-    values.upload.map(({ originFileObj }) => {
-      const reader = new FileReader();
-      reader.onload = function (evt) {
-        values.images += evt.target.result;
-        const { name, status, image, description } = values;
+    if (values.upload) {
+      values.upload.map(({ originFileObj }) => {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          values.images += evt.target.result;
+          const { name, status, image, description } = values;
 
-        dispatch(
-          updateProject({
-            id: selectedRow[0].id,
-            name,
-            status,
-            image,
-            description,
-          })
-        );
+          dispatch(
+            updateProject({
+              id: selectedRow[0].id,
+              name,
+              status,
+              image,
+              description,
+            })
+          );
 
-        setReloadDataTable(!reloadDataTable);
-        form.resetFields();
-      };
-      reader.readAsDataURL(originFileObj);
-    });
+          setReloadDataTable(!reloadDataTable);
+          form.resetFields();
+        };
+        reader.readAsDataURL(originFileObj);
+      });
+    } else {
+      const { name, status, image, description } = values;
+
+      dispatch(
+        updateProject({
+          id: selectedRow[0].id,
+          name,
+          status,
+          image,
+          description,
+        })
+      );
+
+      setReloadDataTable(!reloadDataTable);
+      setSelectedRow([]);
+      form.resetFields();
+    }
   };
 
   const handleDeleteProject = () => {
     dispatch(deleteProject({ id: selectedRow[0].id }));
     setReloadDataTable(!reloadDataTable);
+    setSelectedRow([]);
     form.resetFields();
   };
 
@@ -83,7 +107,6 @@ const AdminProject = () => {
   };
 
   // Data table
-  const [selectedRow, setSelectedRow] = React.useState([]);
   const data = useSelector((state) => state.adminProjectReducer.projects);
 
   const columns = [
@@ -102,10 +125,6 @@ const AdminProject = () => {
     type: 'radio',
     onChange: onSelectChange,
   };
-
-  React.useEffect(() => {
-    dispatch(getAllProjects());
-  }, [reloadDataTable]);
 
   return (
     <div style={{ padding: 16 }}>

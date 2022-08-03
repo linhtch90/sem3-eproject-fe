@@ -15,6 +15,13 @@ import { getAllServices } from '../feature/service/ServiceSlice';
 const AdminProduct = () => {
   const dispatch = useDispatch();
   const [reloadDataTable, setReloadDataTable] = React.useState(true);
+  const [selectedRow, setSelectedRow] = React.useState([]);
+
+  React.useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(getAllDomains());
+    dispatch(getAllServices());
+  }, [reloadDataTable]);
 
   // Form
   const [form] = Form.useForm();
@@ -48,34 +55,54 @@ const AdminProduct = () => {
   const handleOnFinishUpdate = (values) => {
     values.images = '';
 
-    values.upload.map(({ originFileObj }) => {
-      const reader = new FileReader();
-      reader.onload = function (evt) {
-        values.images += evt.target.result;
-        const { name, price, image, description, domainid, serviceid } = values;
+    if (values.upload) {
+      values.upload.map(({ originFileObj }) => {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          values.images += evt.target.result;
+          const { name, price, image, description, domainid, serviceid } = values;
 
-        dispatch(
-          updateProduct({
-            id: selectedRow[0].id,
-            name,
-            price,
-            image,
-            description,
-            domainid,
-            serviceid,
-          })
-        );
+          dispatch(
+            updateProduct({
+              id: selectedRow[0].id,
+              name,
+              price,
+              image,
+              description,
+              domainid,
+              serviceid,
+            })
+          );
 
-        setReloadDataTable(!reloadDataTable);
-        form.resetFields();
-      };
-      reader.readAsDataURL(originFileObj);
-    });
+          setReloadDataTable(!reloadDataTable);
+          form.resetFields();
+        };
+        reader.readAsDataURL(originFileObj);
+      });
+    } else {
+      const { name, price, image, description, domainid, serviceid } = values;
+
+      dispatch(
+        updateProduct({
+          id: selectedRow[0].id,
+          name,
+          price,
+          image,
+          description,
+          domainid,
+          serviceid,
+        })
+      );
+
+      setReloadDataTable(!reloadDataTable);
+      form.resetFields();
+    }
   };
 
   const handleDeleteProduct = () => {
     dispatch(deleteProduct({ id: selectedRow[0].id }));
     setReloadDataTable(!reloadDataTable);
+    setSelectedRow([]);
     form.resetFields();
   };
 
@@ -89,7 +116,6 @@ const AdminProduct = () => {
   };
 
   // Data table
-  const [selectedRow, setSelectedRow] = React.useState([]);
   const data = useSelector((state) => state.adminProductReducer.products);
   const domains = useSelector((state) => state.domainReducer.domains);
   const services = useSelector((state) => state.serviceReducer.services);
@@ -111,12 +137,6 @@ const AdminProduct = () => {
     type: 'radio',
     onChange: onSelectChange,
   };
-
-  React.useEffect(() => {
-    dispatch(getAllProducts());
-    dispatch(getAllDomains());
-    dispatch(getAllServices());
-  }, [reloadDataTable]);
 
   return (
     <div style={{ padding: 16 }}>
