@@ -6,11 +6,14 @@ import AboutUsDemo from '../sub-component/AboutUsDemo';
 
 import AdminHome from './AdminHome';
 import AdminPage from './AdminPage';
+import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
 import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 import HomePage from './HomePage';
+import ProductHome from './ProductHome';
+import ProductPage from './ProductPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UserSignUpSuccess from './UserSignUpSuccess';
@@ -28,9 +31,15 @@ const AppContainer = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="aboutus" element={<AboutUsDemo />} />
               <Route path="faq" element={<FaqPage />} />
+
               <Route path="admin" element={<AdminPage />}>
                 <Route index element={<AdminHome />} />
                 <Route path="project" element={<AdminProject />} />
+                <Route path="product" element={<AdminProduct />} />
+              </Route>
+
+              <Route path="product" element={<ProductPage />}>
+                <Route index element={<ProductHome />} />
               </Route>
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />

@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { ProjectOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import { Col, Menu, Row } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 
-const adminMenu = [
-  { label: <Link to="/admin/project">Projects</Link>, key: 'project', icon: <ProjectOutlined /> },
-  { label: <Link to="/admin/product">Products</Link>, key: 'product', icon: <ProjectOutlined /> },
+const productMenu = [
+  { label: <Link to="/product/home">Home Products</Link>, key: 'productHome', icon: <HomeOutlined /> },
 ];
 
-const AdminPage = () => {
+const ProductPage = () => {
   return (
     <Row>
       <Col style={{ backgroundColor: '#001529' }} span={4}>
         <Sider width={240}>
-          <Menu theme="dark" items={adminMenu} />
+          <Menu theme="dark" items={productMenu} />
         </Sider>
       </Col>
       <Col span={20}>
@@ -27,4 +26,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default ProductPage;

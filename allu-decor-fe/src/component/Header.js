@@ -23,7 +23,7 @@ import styles from '../css/Header.module.css';
 const MENU_ITEMS = [
   { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
   { label: 'Projects', key: 'projects', icon: <FundProjectionScreenOutlined /> },
-  { label: 'Products', key: 'products', icon: <ShopOutlined /> },
+  { label: <Link to="product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
@@ -33,7 +33,7 @@ const MENU_ITEMS = [
 const MENU_ITEMS_ADMIN = [
   { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
   { label: 'Projects', key: 'projects', icon: <FundProjectionScreenOutlined /> },
-  { label: 'Products', key: 'products', icon: <ShopOutlined /> },
+  { label: <Link to="product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
