@@ -12,6 +12,7 @@ import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 import HomePage from './HomePage';
+import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
 import SignIn from './SignIn';
@@ -27,24 +28,27 @@ const AppContainer = () => {
         <Layout>
           <Header />
           <Layout>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="aboutus" element={<AboutUsDemo />} />
-              <Route path="faq" element={<FaqPage />} />
+            <div style={{ width: '80%', margin: 'auto' }}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="aboutus" element={<AboutUsDemo />} />
+                <Route path="faq" element={<FaqPage />} />
 
-              <Route path="admin" element={<AdminPage />}>
-                <Route index element={<AdminHome />} />
-                <Route path="project" element={<AdminProject />} />
-                <Route path="product" element={<AdminProduct />} />
-              </Route>
+                <Route path="admin" element={<AdminPage />}>
+                  <Route index element={<AdminHome />} />
+                  <Route path="project" element={<AdminProject />} />
+                  <Route path="product" element={<AdminProduct />} />
+                </Route>
 
-              <Route path="product" element={<ProductPage />}>
-                <Route index element={<ProductHome />} />
-              </Route>
-              <Route path="signin" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
-            </Routes>
+                <Route path="product" element={<ProductPage />}>
+                  <Route index element={<ProductHome />} />
+                  <Route path=":productId" element={<ProductDetail />} />
+                </Route>
+                <Route path="signin" element={<SignIn />} />
+                <Route path="signup" element={<SignUp />} />
+                <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
+              </Routes>
+            </div>
             <Footer />
           </Layout>
         </Layout>

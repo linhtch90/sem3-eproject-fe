@@ -12,9 +12,9 @@ const productMenu = [
 const ProductPage = () => {
   return (
     <Row>
-      <Col style={{ backgroundColor: '#001529' }} span={4}>
+      <Col span={4}>
         <Sider width={240}>
-          <Menu theme="dark" items={productMenu} />
+          <Menu theme="light" items={productMenu} />
         </Sider>
       </Col>
       <Col span={20}>

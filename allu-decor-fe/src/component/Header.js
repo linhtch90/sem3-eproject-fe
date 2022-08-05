@@ -14,7 +14,7 @@ import {
   ShoppingOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
-import { Avatar, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
+import { Avatar, Badge, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
 
@@ -45,6 +45,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
+  const cartItems = useSelector((state) => state.cartReducer.cartItems);
   const [currentMenu, setCurrentMenu] = React.useState('home');
 
   const handleClick = (e) => {
@@ -89,7 +90,9 @@ const Header = () => {
             <Space direction="vertical" size={'middle'}>
               <Row justify="end">
                 <Space size={'middle'}>
-                  <Button type="primary" shape="circle" icon={<ShoppingOutlined />}></Button>
+                  <Badge count={cartItems.length > 0 ? cartItems.length : null}>
+                    <Button type="primary" shape="circle" icon={<ShoppingOutlined />}></Button>
+                  </Badge>
 
                   {user ? (
                     <>

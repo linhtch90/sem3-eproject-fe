@@ -95,6 +95,7 @@ const AdminProduct = () => {
       );
 
       setReloadDataTable(!reloadDataTable);
+      setSelectedRow([]);
       form.resetFields();
     }
   };
