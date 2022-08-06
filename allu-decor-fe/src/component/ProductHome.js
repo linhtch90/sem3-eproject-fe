@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Col, Image, Row, Spin, Typography } from 'antd';
 
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
-import { addToCart } from '../feature/cart/CartSlice';
+import { addToCart, getCartProductById } from '../feature/cart/CartSlice';
 
 const { Title } = Typography;
 
@@ -19,6 +19,7 @@ const ProductHome = () => {
 
   const handleAddToCartClick = (id) => {
     dispatch(addToCart(id));
+    dispatch(getCartProductById({ id }));
   };
 
   return (

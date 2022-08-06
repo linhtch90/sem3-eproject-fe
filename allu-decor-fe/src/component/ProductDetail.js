@@ -25,31 +25,34 @@ const ProductDetail = () => {
       {productDetail ? (
         <Row>
           <Row gutter={16} justify="space-between" style={{ marginLeft: 40, marginTop: 40, marginBottom: 40 }}>
-            <Col span={12} style={{ padding: 16 }}>
-              <Image width={'100%'} src={productDetail.image} />
-            </Col>
-            <Col span={12}>
-              <Row justify="end">
-                <Title style={{ color: '#076678' }}>{productDetail.name}</Title>
-              </Row>
-              <Row justify="end">
-                <Title level={2} style={{ color: '#D65D0E' }}>
-                  {productDetail.price} USD
-                </Title>
-              </Row>
-              <Row justify="center" style={{ marginTop: 16, marginBottom: 16 }}>
-                <Button type="primary" shape="round" onClick={handleAddToCart}>
-                  Add to Cart
-                </Button>
-              </Row>
-
+            <Row>
+              <Col span={12} style={{ padding: 16 }}>
+                <Image width={'100%'} src={productDetail.image} />
+              </Col>
+              <Col span={12}>
+                <Row justify="end">
+                  <Title style={{ color: '#076678' }}>{productDetail.name}</Title>
+                </Row>
+                <Row justify="end">
+                  <Title level={2} style={{ color: '#D65D0E' }}>
+                    {productDetail.price} USD
+                  </Title>
+                </Row>
+                <Row justify="end" style={{ marginTop: 16, marginBottom: 16 }}>
+                  <Button type="primary" shape="round" onClick={handleAddToCart}>
+                    Add to Cart
+                  </Button>
+                </Row>
+              </Col>
+            </Row>
+            <Row style={{ marginLeft: 40, marginTop: 40, marginBottom: 40 }}>
               <Title level={2} style={{ color: '#B16286' }}>
                 Detail Information
               </Title>
               <Title level={4} style={{ color: '#504945' }}>
                 {productDetail.description}
               </Title>
-            </Col>
+            </Row>
           </Row>
         </Row>
       ) : (

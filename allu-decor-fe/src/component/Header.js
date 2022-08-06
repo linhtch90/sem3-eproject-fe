@@ -45,7 +45,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
-  const cartItems = useSelector((state) => state.cartReducer.cartItems);
+  const cartItemIds = useSelector((state) => state.cartReducer.cartItemIds);
   const [currentMenu, setCurrentMenu] = React.useState('home');
 
   const handleClick = (e) => {
@@ -58,6 +58,10 @@ const Header = () => {
 
   const handleSignUpClick = () => {
     navigate('/signup');
+  };
+
+  const handleCartClick = () => {
+    navigate('/cart');
   };
 
   const handleSignOutClick = () => {
@@ -90,8 +94,13 @@ const Header = () => {
             <Space direction="vertical" size={'middle'}>
               <Row justify="end">
                 <Space size={'middle'}>
-                  <Badge count={cartItems.length > 0 ? cartItems.length : null}>
-                    <Button type="primary" shape="circle" icon={<ShoppingOutlined />}></Button>
+                  <Badge count={cartItemIds.length > 0 ? cartItemIds.length : null}>
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={<ShoppingOutlined />}
+                      onClick={handleCartClick}
+                    ></Button>
                   </Badge>
 
                   {user ? (

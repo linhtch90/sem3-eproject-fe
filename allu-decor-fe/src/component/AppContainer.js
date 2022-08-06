@@ -12,6 +12,7 @@ import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 import HomePage from './HomePage';
+import ProductCart from './ProductCart';
 import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
@@ -44,6 +45,8 @@ const AppContainer = () => {
                   <Route index element={<ProductHome />} />
                   <Route path=":productId" element={<ProductDetail />} />
                 </Route>
+
+                <Route path="cart" element={<ProductCart />} />
                 <Route path="signin" element={<SignIn />} />
                 <Route path="signup" element={<SignUp />} />
                 <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
