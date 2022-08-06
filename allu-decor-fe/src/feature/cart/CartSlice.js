@@ -5,7 +5,6 @@ import axios from 'axios';
 const getProductByIdUrl = 'https://localhost:44302/api/product/';
 
 const initialState = {
-  cartItemIds: [],
   cartItems: [],
 };
 
@@ -23,16 +22,22 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      if (!state.cartItemIds.includes(action.payload)) {
-        state.cartItemIds.push(action.payload);
+      if (!state.cartItems.find((item) => item.id === action.payload.id)) {
+        const payload = { ...action.payload, quantity: 1, totalprice: action.payload.price };
+        state.cartItems.push(payload);
+      } else {
+        state.cartItems.find((item) => item.id === action.payload.id).quantity += 1;
+        state.cartItems.find((item) => item.id === action.payload.id).totalprice =
+          state.cartItems.find((item) => item.id === action.payload.id).quantity *
+          state.cartItems.find((item) => item.id === action.payload.id).price;
       }
     },
     removeFromCart: (state, action) => {
-      state.cartItemIds = state.cartItemIds.filter((id) => id !== action.payload);
+      state.cartItems = state.cartItems.filter((item) => item.id !== action.payload);
     },
     setQuantity: (state, action) => {
       if (action.payload.quantity < 100 && action.payload.quantity > 0.5) {
-        state.cartItems.find((item) => item.id === action.payload.id).quantity = Math.round(action.payload.quantity);
+        state.cartItems.find((item) => item.id === action.payload.id).quantity = parseInt(action.payload.quantity);
         state.cartItems.find((item) => item.id === action.payload.id).totalprice =
           state.cartItems.find((item) => item.id === action.payload.id).quantity *
           state.cartItems.find((item) => item.id === action.payload.id).price;
@@ -44,9 +49,11 @@ export const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCartProductById.fulfilled, (state, action) => {
-      action.payload.quantity = 1;
-      action.payload.totalprice = action.payload.quantity * action.payload.price;
-      state.cartItems.push(action.payload);
+      if (!state.cartItems.find((item) => item.id === action.payload.id)) {
+        action.payload.quantity = 1;
+        action.payload.totalprice = action.payload.quantity * action.payload.price;
+        state.cartItems.push(action.payload);
+      }
     });
   },
 });

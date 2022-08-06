@@ -17,9 +17,8 @@ const ProductHome = () => {
     dispatch(getAllProducts());
   }, []);
 
-  const handleAddToCartClick = (id) => {
-    dispatch(addToCart(id));
-    dispatch(getCartProductById({ id }));
+  const handleAddToCartClick = (product) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -47,7 +46,7 @@ const ProductHome = () => {
             </Row>
             <Row justify="space-evenly" style={{ marginBottom: 16 }}>
               <Col span={16}>
-                <Button block type="primary" shape="round" onClick={() => handleAddToCartClick(product.id)}>
+                <Button block type="primary" shape="round" onClick={() => handleAddToCartClick(product)}>
                   Add to Cart
                 </Button>
               </Col>

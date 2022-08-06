@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Image, Input, notification, Row, Tooltip, Typography } from 'antd';
 
-import { decreaseQuantity, increaseQuantity, removeFromCart, removeItem, setQuantity } from '../feature/cart/CartSlice';
+import { removeFromCart, removeItem, setQuantity } from '../feature/cart/CartSlice';
 
 const { Title } = Typography;
 
@@ -21,20 +21,16 @@ const CartItem = ({ item }) => {
   };
 
   const handleIncrease = () => {
-    if (Math.round(quantityValue + 1) > 0 && Math.round(quantityValue + 1) < 100) {
-      setQuantityValue(quantityValue + 1);
+    if (parseInt(quantityValue) + 1 > 0 && parseInt(quantityValue) + 1 < 100) {
+      setQuantityValue(parseInt(quantityValue) + 1);
       dispatch(setQuantity({ id: item.id, quantity: Math.round(quantityValue + 1) }));
-    } else {
-      raiseInvalidQuantity();
     }
   };
 
   const handleDecrease = () => {
-    if (Math.round(quantityValue - 1) > 0 && Math.round(quantityValue - 1) < 100) {
-      setQuantityValue(quantityValue - 1);
-      dispatch(setQuantity({ id: item.id, quantity: Math.round(quantityValue - 1) }));
-    } else {
-      raiseInvalidQuantity();
+    if (parseInt(quantityValue) - 1 > 0 && parseInt(quantityValue) - 1 < 100) {
+      setQuantityValue(parseInt(quantityValue) - 1);
+      dispatch(setQuantity({ id: item.id, quantity: parseInt(quantityValue) - 1 }));
     }
   };
 
@@ -42,8 +38,6 @@ const CartItem = ({ item }) => {
     if (Math.round(e.target.value) > 0 && Math.round(e.target.value) < 100) {
       setQuantityValue(e.target.value);
       dispatch(setQuantity({ id: item.id, quantity: Math.round(e.target.value) }));
-    } else {
-      raiseInvalidQuantity();
     }
   };
 
@@ -53,17 +47,17 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <Row>
-      <Col span={4}>
+    <Row justify="center" style={{ marginBottom: 32 }}>
+      <Col span={4} style={{ marginRight: 16 }}>
         <Image size={'20%'} src={item.image} />
       </Col>
       <Col span={5}>
         <Title level={3}>{item.name}</Title>
       </Col>
-      <Col span={5}>
-        <Title level={4}>{item.price}</Title>
+      <Col span={3}>
+        <Title level={4}>{item.price} USD</Title>
       </Col>
-      <Col span={5}>
+      <Col span={3}>
         <Tooltip
           trigger={['focus']}
           title={'Quantity must be a positive integer less than 100. Otherwise please contact our sale department!'}
@@ -82,7 +76,7 @@ const CartItem = ({ item }) => {
           <Input
             value={quantityValue}
             maxLength={2}
-            style={{ width: 64, marginLeft: 8, marginRight: 8 }}
+            style={{ width: 48, marginLeft: 8, marginRight: 8 }}
             onChange={handleChange}
           />
           <Button
@@ -93,8 +87,8 @@ const CartItem = ({ item }) => {
           />
         </Tooltip>
       </Col>
-      <Col span={5}>
-        <Title level={4}>{item.totalprice}</Title>
+      <Col span={3}>
+        <Title level={4}>{item.totalprice} USD</Title>
       </Col>
     </Row>
   );

@@ -45,7 +45,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
-  const cartItemIds = useSelector((state) => state.cartReducer.cartItemIds);
+  const cartItems = useSelector((state) => state.cartReducer.cartItems);
   const [currentMenu, setCurrentMenu] = React.useState('home');
 
   const handleClick = (e) => {
@@ -94,7 +94,7 @@ const Header = () => {
             <Space direction="vertical" size={'middle'}>
               <Row justify="end">
                 <Space size={'middle'}>
-                  <Badge count={cartItemIds.length > 0 ? cartItemIds.length : null}>
+                  <Badge count={cartItems.length > 0 ? cartItems.length : null}>
                     <Button
                       type="primary"
                       shape="circle"
