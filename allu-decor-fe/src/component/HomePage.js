@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, Carousel, Col, Form, Input, Row } from 'antd';
 
+import CustomerReviewComponent from '../component/CustomerReview';
 import imageUser1 from '../images/CR-Alexander.jpg';
 import imageUser2 from '../images/CR-Lina.jpg';
 import newProductImageUrl from '../images/newproducts.jpg';
@@ -92,48 +93,6 @@ const ProductsComponent = () => {
         <ProductItemComponent imgurl={newProductImageUrl} title={'Restaurant Decor'} />
       </Col>
     </Row>
-  );
-};
-
-//=====Customer Review Component=====
-const CustomerReviewComponent = () => {
-  return (
-    <Carousel autoplay>
-      <div>
-        <Row align="middle">
-          <Col span={12}>
-            <img className={styles.imgCustomer} src={imageUser1} />
-          </Col>
-          <Col span={12}>
-            <h1>CUSTOMER REVIEW</h1>
-            <h1>Lina</h1>
-            <p>IBM Company</p>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
-            </p>
-          </Col>
-        </Row>
-      </div>
-      <div>
-        <Row align="middle">
-          <Col span={12}>
-            <img className={styles.imgCustomer} src={imageUser2} />
-          </Col>
-          <Col span={12}>
-            <h1>CUSTOMER REVIEW</h1>
-            <h1>Alexander</h1>
-            <p>ABC Restaurant Group</p>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
-            </p>
-          </Col>
-        </Row>
-      </div>
-    </Carousel>
   );
 };
 
