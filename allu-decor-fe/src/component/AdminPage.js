@@ -8,6 +8,7 @@ import Sider from 'antd/lib/layout/Sider';
 const adminMenu = [
   { label: <Link to="/admin/project">Projects</Link>, key: 'project', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/product">Products</Link>, key: 'product', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/customerreview">Customer Reviews</Link>, key: 'customerreview', icon: <ProjectOutlined /> },
 ];
 
 const AdminPage = () => {
