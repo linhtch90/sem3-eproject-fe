@@ -6,11 +6,13 @@ const createInvoiceUrl = 'https://localhost:44302/api/invoice/createinvoice';
 const createInvoiceitemUrl = 'https://localhost:44302/api/invoiceitem/createinvoiceitem';
 const getAllInvoiceUrl = 'https://localhost:44302/api/invoice';
 const getAllInvoiceByUserIdUrl = 'https://localhost:44302/api/invoice/byuserid';
+const updateInvoiceUrl = 'https://localhost:44302/api/invoice/updateinvoice';
 
 const initialState = {
   createdInvoiceId: '',
   invoices: null,
   invoicesByUserId: null,
+  updateInvoiceStatus: '',
 };
 
 export const createInvoice = createAsyncThunk(
@@ -78,6 +80,22 @@ export const getAllInvoicesByUserId = createAsyncThunk('/api/invoice/clientinvoi
   return response.data.responseObject;
 });
 
+export const updateInvoice = createAsyncThunk(
+  '/api/invoice/updateinvoice',
+  async ({ id, createat, totalprice, status, userid }, thunkApi) => {
+    const response = await axios({
+      method: 'post',
+      url: updateInvoiceUrl,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: { id, createat, totalprice, status, userid },
+    });
+
+    return response.data.responseObject;
+  }
+);
+
 export const invoiceSlice = createSlice({
   name: 'invoiceSlice',
   initialState,
@@ -91,6 +109,9 @@ export const invoiceSlice = createSlice({
     });
     builder.addCase(getAllInvoicesByUserId.fulfilled, (state, action) => {
       state.invoicesByUserId = action.payload;
+    });
+    builder.addCase(updateInvoice.fulfilled, (state, action) => {
+      state.updateInvoiceStatus = action.payload;
     });
   },
 });

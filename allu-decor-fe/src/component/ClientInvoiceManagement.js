@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from 'antd';
+import { Button, notification, Row, Steps, Table } from 'antd';
 
-import { getAllInvoicesByUserId } from '../feature/invoice/InvoiceSlice';
+import { getAllInvoicesByUserId, updateInvoice } from '../feature/invoice/InvoiceSlice';
 import { getAllItemsByInvoiceId } from '../feature/invoiceitem/InvoiceitemSlice';
-import { getAllProducts, getProductById } from '../feature/product/ProductSlice';
+
+const { Step } = Steps;
 
 const invoiceColumns = [
   { title: 'Invoice ID', dataIndex: 'id' },
@@ -20,37 +21,40 @@ const invoiceItemColumns = [
   { title: 'Total (USD)', dataIndex: 'totalprice' },
 ];
 
+const statusList = [
+  { status: 'Request Received', index: 0 },
+  { status: 'Rejected', index: 1 },
+  { status: 'Accepted', index: 2 },
+  { status: 'Payment Received', index: 3 },
+  { status: 'Service Began', index: 4 },
+  { status: 'Service Completed', index: 5 },
+];
+
 const ClientInvoiceManagement = () => {
+  const [api, contextHolder] = notification.useNotification();
+
   const localUserId = localStorage.getItem('userid');
   const dispatch = useDispatch();
   const invoicesByUserId = useSelector((state) => state.invoiceReducer.invoicesByUserId);
   const invoiceitems = useSelector((state) => state.invoiceitemReducer.invoiceitems);
-  const productDetail = useSelector((state) => state.productReducer.productDetail);
 
-  const [itemRow, setItemRow] = React.useState([]);
+  const [currentInvoiceStatusIndex, setCurrentInvoiceStatusIndex] = React.useState(6);
+  const [selectInvoiceId, setSelectInvoiceId] = React.useState('');
 
   React.useEffect(() => {
     dispatch(getAllInvoicesByUserId({ id: localUserId }));
   }, []);
 
-  const onSelectChange = async (key, newSelectedRow) => {
+  const onSelectChange = (key, newSelectedRow) => {
     const { id } = newSelectedRow[0];
-    await dispatch(getAllItemsByInvoiceId({ id }));
-    handleGetProducts();
-  };
-
-  const handleGetProducts = async () => {
-    if (invoiceitems) {
-      await invoiceitems.map(async (item) => {
-        await dispatch(getProductById({ id: item.productid }));
-        handleCombineData({ item });
-      });
-    }
-  };
-
-  const handleCombineData = ({ item }) => {
-    console.log(itemRow);
-    setItemRow(itemRow.push({ ...item, ...productDetail }));
+    dispatch(getAllItemsByInvoiceId({ id }));
+    const invoiceStatus = invoicesByUserId.find((item) => item.id === id).status;
+    const statusIndex = statusList.find((item) => item.status === invoiceStatus).index;
+    setCurrentInvoiceStatusIndex(statusIndex);
+    setSelectInvoiceId(id);
+    setCurrentInvoiceStatusIndex(
+      statusList.find((item) => item.status === invoicesByUserId.find((item) => item.id === id).status).index
+    );
   };
 
   const rowSelection = {
@@ -58,11 +62,44 @@ const ClientInvoiceManagement = () => {
     onChange: onSelectChange,
   };
 
+  const rejectInvoice = () => {
+    if (currentInvoiceStatusIndex < 3) {
+      setCurrentInvoiceStatusIndex(statusList.find((item) => item.status === 'Rejected').index);
+      const { id, createat, totalprice, userid } = invoicesByUserId.find((invoice) => invoice.id === selectInvoiceId);
+      dispatch(updateInvoice({ id, createat, totalprice, status: 'Rejected', userid }));
+      dispatch(getAllInvoicesByUserId({ id: localUserId }));
+    } else {
+      api.warning({
+        message: 'Cannot Reject Invoice',
+        description: 'You cannot reject the invoice because payment process was completed',
+        placement: 'bottomRight',
+      });
+    }
+  };
+
   return (
     <div>
-      <h1>Client Invoice Management</h1>
+      <h1>Invoice</h1>
       <Table columns={invoiceColumns} dataSource={invoicesByUserId} rowSelection={rowSelection} />
-      <Table columns={invoiceItemColumns} dataSource={itemRow} />
+
+      <h1>Equivalent Invoice Items</h1>
+      <Table columns={invoiceItemColumns} dataSource={invoiceitems} />
+
+      {currentInvoiceStatusIndex < 6 ? (
+        <div>
+          <h1>Status</h1>
+          <Steps current={currentInvoiceStatusIndex}>
+            {statusList.map((statusItem) => (
+              <Step title={statusItem.status} description={''} key={statusItem.index} />
+            ))}
+          </Steps>
+          <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
+            <Button type="primary" shape="round" onClick={rejectInvoice}>
+              Reject Invoice
+            </Button>
+          </Row>
+        </div>
+      ) : null}
     </div>
   );
 };
