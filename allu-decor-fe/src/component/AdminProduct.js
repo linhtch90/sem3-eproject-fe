@@ -14,6 +14,11 @@ import { getAllServices } from '../feature/service/ServiceSlice';
 
 const AdminProduct = () => {
   const dispatch = useDispatch();
+  // Data table
+  const data = useSelector((state) => state.adminProductReducer.products);
+  const domains = useSelector((state) => state.domainReducer.domains);
+  const services = useSelector((state) => state.serviceReducer.services);
+
   const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
@@ -116,10 +121,7 @@ const AdminProduct = () => {
     return e?.fileList;
   };
 
-  // Data table
-  const data = useSelector((state) => state.adminProductReducer.products);
-  const domains = useSelector((state) => state.domainReducer.domains);
-  const services = useSelector((state) => state.serviceReducer.services);
+  // Table
 
   const columns = [
     { title: 'Name', dataIndex: 'name' },

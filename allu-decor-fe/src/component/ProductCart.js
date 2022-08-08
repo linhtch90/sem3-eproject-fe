@@ -20,11 +20,9 @@ export const InvoiceStatus = {
 const ProductCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
-  const invoiceid = useSelector((state) => state.invoiceReducer.createdInvoiceId);
 
   const handleCreateInvoice = () => {
     const createat = new Date().toISOString();
-    console.log(createat);
     const status = InvoiceStatus.REQUEST_RECEIVED;
     const userid = localStorage.getItem('userid');
 

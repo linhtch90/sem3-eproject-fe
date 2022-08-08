@@ -8,6 +8,7 @@ import AdminHome from './AdminHome';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
+import ClientInvoiceManagement from './ClientInvoiceManagement';
 import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
@@ -47,6 +48,7 @@ const AppContainer = () => {
                 </Route>
 
                 <Route path="cart" element={<ProductCart />} />
+                <Route path="clientinvoicemanagement" element={<ClientInvoiceManagement />} />
                 <Route path="signin" element={<SignIn />} />
                 <Route path="signup" element={<SignUp />} />
                 <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />

@@ -9,8 +9,10 @@ import {
   HomeOutlined,
   LoginOutlined,
   LogoutOutlined,
+  ScheduleOutlined,
   SettingOutlined,
   ShopOutlined,
+  ShoppingCartOutlined,
   ShoppingOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
@@ -64,6 +66,10 @@ const Header = () => {
     navigate('/cart');
   };
 
+  const handleClientInvoiceManagement = () => {
+    navigate('/clientinvoicemanagement');
+  };
+
   const handleSignOutClick = () => {
     dispatch(resetUser());
     localStorage.removeItem('token');
@@ -76,8 +82,31 @@ const Header = () => {
         {
           key: '1',
           label: (
-            <Button type="primary" shape="round" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
+            <Button type="primary" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
               Sign Out
+            </Button>
+          ),
+        },
+      ]}
+    />
+  );
+
+  const menuCart = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <Button block type="primary" icon={<ShoppingCartOutlined />} onClick={handleCartClick}>
+              Checkout
+            </Button>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <Button block type="primary" icon={<ScheduleOutlined />} onClick={handleClientInvoiceManagement}>
+              Invoice Management
             </Button>
           ),
         },
@@ -94,14 +123,16 @@ const Header = () => {
             <Space direction="vertical" size={'middle'}>
               <Row justify="end">
                 <Space size={'middle'}>
-                  <Badge count={cartItems.length > 0 ? cartItems.length : null}>
-                    <Button
-                      type="primary"
-                      shape="circle"
-                      icon={<ShoppingOutlined />}
-                      onClick={handleCartClick}
-                    ></Button>
-                  </Badge>
+                  <Dropdown overlay={menuCart} placement="bottomRight">
+                    <Badge count={cartItems.length > 0 ? cartItems.length : null}>
+                      <Button
+                        type="primary"
+                        shape="circle"
+                        icon={<ShoppingOutlined />}
+                        onClick={handleCartClick}
+                      ></Button>
+                    </Badge>
+                  </Dropdown>
 
                   {user ? (
                     <>
