@@ -5,6 +5,7 @@ import adminProductReducer from '../feature/admin_product/AdminProductSlice';
 import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
 import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import cartReducer from '../feature/cart/CartSlice';
+import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
 import faqReducer from '../feature/faq/FaqSlice';
 import invoiceReducer from '../feature/invoice/InvoiceSlice';
