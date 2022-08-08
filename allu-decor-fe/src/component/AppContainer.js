@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 
 import AboutUsDemo from '../sub-component/AboutUsDemo';
 
+import AdminCustomerReview from './AdminCustomerReview';
 import AdminHome from './AdminHome';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
@@ -40,6 +41,7 @@ const AppContainer = () => {
                   <Route index element={<AdminHome />} />
                   <Route path="project" element={<AdminProject />} />
                   <Route path="product" element={<AdminProduct />} />
+                  <Route path="customerreview" element={<AdminCustomerReview />} />
                 </Route>
 
                 <Route path="product" element={<ProductPage />}>
