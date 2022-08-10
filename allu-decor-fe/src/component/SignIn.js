@@ -18,7 +18,7 @@ const SignIn = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: '80%', margin: 'auto' }}>
       <Form
         name="basic"
         layout="vertical"

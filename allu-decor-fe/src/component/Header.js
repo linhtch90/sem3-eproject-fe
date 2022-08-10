@@ -22,14 +22,13 @@ import { resetUser } from '../feature/user/UserSlice';
 
 import styles from '../css/Header.module.css';
 
-const MENU_ITEMS = [
+const MENU_ITEMS_CLIENT = [
   { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
   { label: 'Projects', key: 'projects', icon: <FundProjectionScreenOutlined /> },
   { label: <Link to="product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
   { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
-  { label: <Link to="admin">Admin</Link>, key: 'admin', icon: <SettingOutlined /> },
 ];
 
 const MENU_ITEMS_ADMIN = [
@@ -82,7 +81,7 @@ const Header = () => {
         {
           key: '1',
           label: (
-            <Button type="primary" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
+            <Button block type="text" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
               Sign Out
             </Button>
           ),
@@ -97,7 +96,7 @@ const Header = () => {
         {
           key: '1',
           label: (
-            <Button block type="primary" icon={<ShoppingCartOutlined />} onClick={handleCartClick}>
+            <Button block type="text" icon={<ShoppingCartOutlined />} onClick={handleCartClick}>
               Checkout
             </Button>
           ),
@@ -105,7 +104,7 @@ const Header = () => {
         {
           key: '2',
           label: (
-            <Button block type="primary" icon={<ScheduleOutlined />} onClick={handleClientInvoiceManagement}>
+            <Button block type="text" icon={<ScheduleOutlined />} onClick={handleClientInvoiceManagement}>
               Invoice Management
             </Button>
           ),
@@ -170,7 +169,7 @@ const Header = () => {
                     selectedKeys={[currentMenu]}
                     mode="horizontal"
                     disabledOverflow
-                    items={MENU_ITEMS}
+                    items={MENU_ITEMS_CLIENT}
                   />
                 )}
               </Row>

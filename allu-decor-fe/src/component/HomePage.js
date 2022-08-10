@@ -193,7 +193,7 @@ function ContactUsComponent() {
 //=====Render Home Page=====
 const HomePage = () => {
   return (
-    <div style={{ margin: 'auto', width: '90%' }}>
+    <div style={{ margin: 'auto', width: '80%' }}>
       <IntroductionComponent />
       <div className={styles.spaceComponent}></div>
       <IntroProjectComponent />

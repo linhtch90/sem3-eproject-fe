@@ -15,7 +15,7 @@ const FaqPage = () => {
   }, []);
 
   return (
-    <div style={{ margin: 'auto', width: '90%' }}>
+    <div style={{ margin: 'auto', width: '80%' }}>
       <h1>Faq page</h1>
       <div>
         {storedFaqPairs ? (

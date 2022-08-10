@@ -14,12 +14,14 @@ import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 import HomePage from './HomePage';
+import PageNotFound from './PageNotFound';
 import ProductCart from './ProductCart';
 import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import UnauthorizedPage from './UnauthorizedPage';
 import UserSignUpSuccess from './UserSignUpSuccess';
 
 import styles from '../css/AppContainer.module.css';
@@ -31,31 +33,31 @@ const AppContainer = () => {
         <Layout>
           <Header />
           <Layout>
-            <div style={{ width: '80%', margin: 'auto' }}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="aboutus" element={<AboutUsDemo />} />
-                <Route path="faq" element={<FaqPage />} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="aboutus" element={<AboutUsDemo />} />
+              <Route path="faq" element={<FaqPage />} />
 
-                <Route path="admin" element={<AdminPage />}>
-                  <Route index element={<AdminHome />} />
-                  <Route path="project" element={<AdminProject />} />
-                  <Route path="product" element={<AdminProduct />} />
-                  <Route path="customerreview" element={<AdminCustomerReview />} />
-                </Route>
+              <Route path="admin" element={<AdminPage />}>
+                <Route index element={<AdminHome />} />
+                <Route path="project" element={<AdminProject />} />
+                <Route path="product" element={<AdminProduct />} />
+                <Route path="customerreview" element={<AdminCustomerReview />} />
+              </Route>
 
-                <Route path="product" element={<ProductPage />}>
-                  <Route index element={<ProductHome />} />
-                  <Route path=":productId" element={<ProductDetail />} />
-                </Route>
+              <Route path="product" element={<ProductPage />}>
+                <Route index element={<ProductHome />} />
+                <Route path=":productId" element={<ProductDetail />} />
+              </Route>
 
-                <Route path="cart" element={<ProductCart />} />
-                <Route path="clientinvoicemanagement" element={<ClientInvoiceManagement />} />
-                <Route path="signin" element={<SignIn />} />
-                <Route path="signup" element={<SignUp />} />
-                <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
-              </Routes>
-            </div>
+              <Route path="cart" element={<ProductCart />} />
+              <Route path="clientinvoicemanagement" element={<ClientInvoiceManagement />} />
+              <Route path="signin" element={<SignIn />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
+              <Route path="unauthorized" element={<UnauthorizedPage />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
             <Footer />
           </Layout>
         </Layout>

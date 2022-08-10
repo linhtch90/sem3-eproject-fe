@@ -34,7 +34,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: '80%', margin: 'auto' }}>
       <Form
         form={form}
         name="basic"

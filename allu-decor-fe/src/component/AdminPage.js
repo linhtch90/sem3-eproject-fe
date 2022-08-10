@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProjectOutlined } from '@ant-design/icons';
 import { Col, Menu, Row } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
@@ -12,6 +13,15 @@ const adminMenu = [
 ];
 
 const AdminPage = () => {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const userRole = localStorage.getItem('userrole');
+    if (userRole !== 'Admin') {
+      navigate('/unauthorized');
+    }
+  }, []);
+
   return (
     <Row>
       <Col style={{ backgroundColor: '#001529' }} span={4}>

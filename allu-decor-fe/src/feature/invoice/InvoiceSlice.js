@@ -65,7 +65,7 @@ export const getAllInvoices = createAsyncThunk('/api/invoice', async (thunkApi) 
   return response.data.responseObject;
 });
 
-export const getAllInvoicesByUserId = createAsyncThunk('/api/invoice/clientinvoice', async ({ id }, thunkApi) => {
+export const getAllInvoicesByUserId = createAsyncThunk('/api/invoice/byuserid', async ({ id }, thunkApi) => {
   const response = await axios({
     method: 'post',
     url: getAllInvoiceByUserIdUrl,

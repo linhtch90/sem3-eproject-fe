@@ -52,9 +52,6 @@ const ClientInvoiceManagement = () => {
     const statusIndex = statusList.find((item) => item.status === invoiceStatus).index;
     setCurrentInvoiceStatusIndex(statusIndex);
     setSelectInvoiceId(id);
-    setCurrentInvoiceStatusIndex(
-      statusList.find((item) => item.status === invoicesByUserId.find((item) => item.id === id).status).index
-    );
   };
 
   const rowSelection = {
@@ -62,12 +59,12 @@ const ClientInvoiceManagement = () => {
     onChange: onSelectChange,
   };
 
-  const rejectInvoice = () => {
+  const rejectInvoice = async () => {
     if (currentInvoiceStatusIndex < 3) {
       setCurrentInvoiceStatusIndex(statusList.find((item) => item.status === 'Rejected').index);
       const { id, createat, totalprice, userid } = invoicesByUserId.find((invoice) => invoice.id === selectInvoiceId);
-      dispatch(updateInvoice({ id, createat, totalprice, status: 'Rejected', userid }));
-      dispatch(getAllInvoicesByUserId({ id: localUserId }));
+      await dispatch(updateInvoice({ id, createat, totalprice, status: 'Rejected', userid }));
+      await dispatch(getAllInvoicesByUserId({ id: localUserId }));
     } else {
       api.warning({
         message: 'Cannot Reject Invoice',
@@ -78,7 +75,7 @@ const ClientInvoiceManagement = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: '80%', margin: 'auto' }}>
       <h1>Invoice</h1>
       <Table columns={invoiceColumns} dataSource={invoicesByUserId} rowSelection={rowSelection} />
 

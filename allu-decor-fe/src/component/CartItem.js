@@ -47,7 +47,7 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <Row justify="center" style={{ marginBottom: 32 }}>
+    <Row justify="center" style={{ width: '80%', margin: 'auto', marginBottom: 32 }}>
       <Col span={4} style={{ marginRight: 16 }}>
         <Image size={'20%'} src={item.image} />
       </Col>

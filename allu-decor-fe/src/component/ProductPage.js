@@ -11,7 +11,7 @@ const productMenu = [
 
 const ProductPage = () => {
   return (
-    <Row>
+    <Row style={{ width: '80%', margin: 'auto' }}>
       <Col span={4}>
         <Sider width={240}>
           <Menu theme="light" items={productMenu} />
