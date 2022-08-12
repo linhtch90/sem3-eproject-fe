@@ -22,6 +22,10 @@ export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email,
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('userid', response.data.id);
     localStorage.setItem('userrole', response.data.role);
+    localStorage.setItem('userFirstname', response.data.firstname);
+    localStorage.setItem('userAddress', response.data.address);
+    localStorage.setItem('userDistrict', response.data.district);
+    localStorage.setItem('userCity', response.data.city);
   }
 
   return response.data;

@@ -19,6 +19,7 @@ import {
 import { Avatar, Badge, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
+import logoImage from '../images/alluring_decors_logo.jpg';
 
 import styles from '../css/Header.module.css';
 
@@ -72,6 +73,9 @@ const Header = () => {
   const handleSignOutClick = () => {
     dispatch(resetUser());
     localStorage.removeItem('token');
+    localStorage.removeItem('userrole');
+    localStorage.removeItem('userFirstname');
+    localStorage.removeItem('userid');
     navigate('/');
   };
 
@@ -116,7 +120,9 @@ const Header = () => {
   return (
     <div className={styles.headerContainer}>
       <Row className={styles.headerSpace}>
-        <Col span={4}>Logo</Col>
+        <Col span={4}>
+          <img src={logoImage} style={{ width: '500px', height: '100px' }} />
+        </Col>
         <Col span={20}>
           <Row justify="end">
             <Space direction="vertical" size={'middle'}>
@@ -133,10 +139,12 @@ const Header = () => {
                     </Badge>
                   </Dropdown>
 
-                  {user ? (
+                  {localStorage.getItem('userFirstname') ? (
                     <>
                       <Dropdown overlay={menu} placement="bottomRight">
-                        <Avatar style={{ backgroundColor: '#1890ff' }}>{user.firstname.charAt(0)}</Avatar>
+                        <Avatar style={{ backgroundColor: '#1890ff' }}>
+                          {localStorage.getItem('userFirstname').charAt(0)}
+                        </Avatar>
                       </Dropdown>
                     </>
                   ) : (
@@ -153,7 +161,7 @@ const Header = () => {
                 </Space>
               </Row>
               <Row justify="end">
-                {user && user.role === 'Admin' ? (
+                {localStorage.getItem('userFirstname') && localStorage.getItem('userrole') === 'Admin' ? (
                   <Menu
                     theme="dark"
                     onClick={handleClick}

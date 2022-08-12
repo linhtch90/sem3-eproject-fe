@@ -20,6 +20,7 @@ export const InvoiceStatus = {
 const ProductCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
+  const user = useSelector((state) => state.userReducer.user);
 
   const handleCreateInvoice = () => {
     const createat = new Date().toISOString();
@@ -35,18 +36,32 @@ const ProductCart = () => {
   return (
     <Row>
       <Col span={24}>
+        <Title
+          level={2}
+          style={{
+            marginLeft: '16rem',
+            marginTop: '4rem',
+            color: '#076678',
+            fontSize: '4rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Order List
+        </Title>
         <Row justify="center" style={{ marginBottom: 32, marginTop: 32 }}>
-          <Col span={4} style={{ marginRight: 16 }}></Col>
+          <Col span={4}></Col>
           <Col span={5}>
             <Title level={4}>Product Name</Title>
           </Col>
           <Col span={3}>
             <Title level={4}>Unit Price</Title>
           </Col>
-          <Col span={3}>
+          <Col span={2}>
             <Title level={4}>Quantity</Title>
           </Col>
-          <Col span={3}>
+          <Col span={4}>
             <Title level={4}>Total</Title>
           </Col>
         </Row>
@@ -57,6 +72,25 @@ const ProductCart = () => {
                 <CartItem item={item} />
               </div>
             ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col style={{ marginLeft: '16rem', marginTop: '4rem' }}>
+            <Title
+              level={2}
+              style={{
+                color: '#076678',
+                fontSize: '4rem',
+                fontWeight: 'bolder',
+                textAlign: 'left',
+                textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+              }}
+            >
+              Shipping Address
+            </Title>
+            <Title level={4}>Address: {localStorage.getItem('userAddress')}</Title>
+            <Title level={4}>District: {localStorage.getItem('userDistrict')}</Title>
+            <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
           </Col>
         </Row>
         <Row justify="center" style={{ marginTop: 16, marginBottom: 16 }}>
