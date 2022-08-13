@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
 
 import projectDesignerImage from '../images/home/designer.webp';
@@ -16,6 +17,10 @@ const { Title } = Typography;
 
 //=====Introduction Component=====
 const IntroductionComponent = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('aboutus');
+  };
   return (
     <Row style={{ backgroundImage: `url(${livingRoomHomeImage})`, height: '555px' }}>
       {/* <Col span={15}>
@@ -35,7 +40,7 @@ const IntroductionComponent = () => {
           >
             ALLURING DECORS
           </Title>
-          <Button type="primary" shape="round">
+          <Button type="primary" shape="round" onClick={handleClick}>
             More About Us...
           </Button>
         </div>
@@ -49,6 +54,10 @@ const IntroductionComponent = () => {
 
 //=====Project Component=====
 const IntroProjectComponent = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('project');
+  };
   return (
     <Row align="middle" gutter={10} style={{ margin: 'auto', width: '80%' }}>
       <Col span={9}>
@@ -68,7 +77,7 @@ const IntroProjectComponent = () => {
             Alluring Decors offers signature colors to create solid color basics for the bedroom. The Felicity quilt
             sets are offered several colors they are a versatile addition to any bedroom decor.
           </Title>
-          <Button type="primary" shape="round">
+          <Button type="primary" shape="round" onClick={handleClick}>
             Visit Our Projects...
           </Button>
         </div>
@@ -253,7 +262,7 @@ function ContactUsComponent() {
 //=====Render Home Page=====
 const HomePage = () => {
   return (
-    <div style={{ margin: 'auto', marginBottom: '6rem' }}>
+    <Col span={24} style={{ margin: 'auto', marginBottom: '6rem' }}>
       <IntroductionComponent />
       <div className={styles.spaceComponent}></div>
       <IntroProjectComponent />
@@ -262,8 +271,8 @@ const HomePage = () => {
       <div className={styles.spaceComponent}></div>
       <CustomerReviewComponent />
       <div className={styles.spaceComponent}></div>
-      <ContactUsComponent />
-    </div>
+      {/* <ContactUsComponent /> */}
+    </Col>
   );
 };
 

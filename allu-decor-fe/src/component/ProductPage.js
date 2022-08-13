@@ -11,13 +11,13 @@ const productMenu = [
 
 const ProductPage = () => {
   return (
-    <Row style={{ width: '80%', margin: 'auto' }}>
-      <Col span={4}>
+    <Row justify="center" style={{ width: '80%', margin: 'auto' }}>
+      {/* <Col span={4}>
         <Sider width={240}>
           <Menu theme="light" items={productMenu} />
         </Sider>
-      </Col>
-      <Col span={20}>
+      </Col> */}
+      <Col span={21}>
         <Content>
           <Outlet />
         </Content>

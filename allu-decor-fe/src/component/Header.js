@@ -19,7 +19,7 @@ import {
 import { Avatar, Badge, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
-import logoImage from '../images/alluring_decors_logo.jpg';
+import logoImage from '../images/alluring_decors_logo.png';
 
 import styles from '../css/Header.module.css';
 
@@ -121,7 +121,7 @@ const Header = () => {
     <div className={styles.headerContainer}>
       <Row className={styles.headerSpace}>
         <Col span={4}>
-          <img src={logoImage} style={{ width: '500px', height: '100px' }} />
+          <img src={logoImage} style={{ width: '300px', height: '100px' }} />
         </Col>
         <Col span={20}>
           <Row justify="end">

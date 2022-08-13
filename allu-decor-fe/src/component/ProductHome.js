@@ -22,11 +22,11 @@ const ProductHome = () => {
   };
 
   return (
-    <Row gutter={16} style={{ marginLeft: 32, marginTop: 40, marginBottom: 40 }}>
+    <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
       {products ? (
         products.map((product) => (
           <Col
-            span={6}
+            span={7}
             key={product.id}
             style={{ margin: 16, padding: 8, boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', borderRadius: 8 }}
           >

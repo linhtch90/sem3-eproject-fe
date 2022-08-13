@@ -4,11 +4,11 @@ import adminCustomerReviewReducer from '../feature/admin_customerreview/AdminCus
 import adminDomainReducer from '../feature/admin_domain/AdminDomainSlice';
 import adminProductReducer from '../feature/admin_product/AdminProductSlice';
 import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
-import cartReducer from '../feature/cart/CartSlice';
-import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
 import adminAboutUsReducer from '../feature/AdminAboutUs/AdminAboutUsSlice';
 import adminContactInfoReducer from '../feature/AdminContactInfo/AdminContactInfoSlice';
+import cartReducer from '../feature/cart/CartSlice';
+import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
 import faqReducer from '../feature/faq/FaqSlice';
 import invoiceReducer from '../feature/invoice/InvoiceSlice';

@@ -5,16 +5,16 @@ import { Layout } from 'antd';
 import AboutUsDemo from '../sub-component/AboutUsDemo';
 import ProjectDetail from '../sub-component/ProjectDetail';
 
-import AdminCustomerReview from './AdminCustomerReview';
 import AdminAboutUs from './AdminAboutUs';
 import AdminContactInfo from './AdminContactInfo';
+import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
 import AdminHome from './AdminHome';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
-import ClientInvoiceManagement from './ClientInvoiceManagement';
 import AdminService from './AdminService';
+import ClientInvoiceManagement from './ClientInvoiceManagement';
 import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
