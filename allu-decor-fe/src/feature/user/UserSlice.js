@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const signInUrl = 'https://localhost:44302/api/user/authenticate';
+const getUserByIdUrl = 'https://localhost:44302/api/user/';
 
 const initialState = {
   user: null,
@@ -31,6 +32,15 @@ export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email,
   return response.data;
 });
 
+export const getUserById = createAsyncThunk('/api/user/id', async ({ id }, thunkApi) => {
+  const response = await axios({
+    method: 'get',
+    url: getUserByIdUrl + id,
+  });
+
+  return response.data.responseObject;
+});
+
 export const userSlice = createSlice({
   name: 'userSlice',
   initialState,
@@ -42,6 +52,9 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signIn.fulfilled, (state, action) => {
       state.user = action.payload;
+    });
+    builder.addCase(getUserById.fulfilled, (state, action) => {
+      state.changePassword = action.payload;
     });
   },
 });

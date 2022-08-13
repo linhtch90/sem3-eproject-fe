@@ -7,6 +7,8 @@ import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
 import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
 import adminAboutUsReducer from '../feature/AdminAboutUs/AdminAboutUsSlice';
 import adminContactInfoReducer from '../feature/AdminContactInfo/AdminContactInfoSlice';
+import adminChangePasswordSlice from '../feature/admin_user/AdminChangePasswordSlice';
+import adminUserReducer from '../feature/admin_user/AdminUserSlice';
 import cartReducer from '../feature/cart/CartSlice';
 import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
@@ -24,6 +26,8 @@ export const store = configureStore({
     userReducer,
     adminProjectReducer,
     adminProductReducer,
+    adminUserReducer,
+    adminChangePasswordSlice,
     domainReducer,
     serviceReducer,
     productReducer,
