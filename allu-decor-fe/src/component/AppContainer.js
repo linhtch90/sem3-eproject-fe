@@ -7,7 +7,6 @@ import ProjectDetail from '../sub-component/ProjectDetail';
 
 import AdminAboutUs from './AdminAboutUs';
 import AdminContactInfo from './AdminContactInfo';
-import AdminChangePassword from './AdminChangePassword';
 import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
 import AdminHome from './AdminHome';
@@ -16,6 +15,7 @@ import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
 import AdminService from './AdminService';
 import AdminUser from './AdminUser';
+import ClientAccountManagement from './ClientAccountManagement';
 import ClientInvoiceManagement from './ClientInvoiceManagement';
 import FaqPage from './FaqPage';
 import Footer from './Footer';
@@ -59,7 +59,6 @@ const AppContainer = () => {
                 <Route path="domain" element={<AdminDomain />} />
                 <Route path="service" element={<AdminService />} />
                 <Route path="user" element={<AdminUser />} />
-                <Route path="user/adminchangepassword" element={<AdminChangePassword />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>
@@ -71,6 +70,7 @@ const AppContainer = () => {
               <Route path="clientinvoicemanagement" element={<ClientInvoiceManagement />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
+              <Route path="account" element={<ClientAccountManagement />} />
               <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
               <Route path="unauthorized" element={<UnauthorizedPage />} />
               <Route path="*" element={<PageNotFound />} />

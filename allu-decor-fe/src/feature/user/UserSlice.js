@@ -7,6 +7,7 @@ const getUserByIdUrl = 'https://localhost:44302/api/user/';
 
 const initialState = {
   user: null,
+  userAccount: null,
 };
 
 export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email, password }, thunkApi) => {
@@ -36,6 +37,9 @@ export const getUserById = createAsyncThunk('/api/user/id', async ({ id }, thunk
   const response = await axios({
     method: 'get',
     url: getUserByIdUrl + id,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
   });
 
   return response.data.responseObject;
@@ -54,7 +58,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(getUserById.fulfilled, (state, action) => {
-      state.changePassword = action.payload;
+      state.userAccount = action.payload;
     });
   },
 });

@@ -73,6 +73,7 @@ export const updateUserWithoutPassword = createAsyncThunk(
         city,
         phone,
         email,
+        password: '',
       },
     });
 

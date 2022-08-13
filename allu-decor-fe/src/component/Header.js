@@ -79,11 +79,23 @@ const Header = () => {
     navigate('/');
   };
 
+  const handleCheckAccountClick = () => {
+    navigate('account');
+  };
+
   const menu = (
     <Menu
       items={[
         {
           key: '1',
+          label: (
+            <Button block type="text" onClick={handleCheckAccountClick} icon={<LogoutOutlined />}>
+              My Account
+            </Button>
+          ),
+        },
+        {
+          key: '2',
           label: (
             <Button block type="text" onClick={handleSignOutClick} icon={<LogoutOutlined />}>
               Sign Out

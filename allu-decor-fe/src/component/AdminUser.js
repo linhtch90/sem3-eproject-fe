@@ -46,22 +46,36 @@ const AdminUser = () => {
   };
 
   const handleOnFinishUpdate = (values) => {
-    console.log(values.firstname);
-    console.log(values.password);
+    const { firstname, lastname, address, district, city, phone, email, password } = values;
+    if (password) {
+      dispatch(
+        updateUser({
+          id: selectedRow[0].id,
+          firstname,
+          lastname,
+          address,
+          district,
+          city,
+          phone,
+          email,
+          password,
+        })
+      );
+    } else {
+      dispatch(
+        updateUserWithoutPassword({
+          id: selectedRow[0].id,
+          firstname,
+          lastname,
+          address,
+          district,
+          city,
+          phone,
+          email,
+        })
+      );
+    }
 
-    const { firstname, lastname, address, district, city, phone, email } = values;
-    dispatch(
-      updateUserWithoutPassword({
-        id: selectedRow[0].id,
-        firstname,
-        lastname,
-        address,
-        district,
-        city,
-        phone,
-        email,
-      })
-    );
     setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
@@ -121,6 +135,8 @@ const AdminUser = () => {
         <Col span={24}>
           <h1>User Info</h1>
         </Col>
+      </Row>
+      <Row justify="center">
         <Col span={14}>
           <Form
             form={form}
@@ -155,7 +171,7 @@ const AdminUser = () => {
             </Form.Item>
 
             <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input address!' }]}>
-              <Input.TextArea showCount maxLength={500} />
+              <Input />
             </Form.Item>
 
             <Form.Item label="District" name="district" rules={[{ required: true, message: 'Please input district!' }]}>
@@ -172,6 +188,14 @@ const AdminUser = () => {
 
             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input email!' }]}>
               <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={selectedRow.length <= 0 ? [{ required: true, message: 'Please input password!' }] : null}
+            >
+              <Input.Password />
             </Form.Item>
 
             {selectedRow.length > 0 ? (
