@@ -27,7 +27,6 @@ const MENU_ITEMS_CLIENT = [
   { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
   { label: <Link to="project">Project</Link>, key: 'project', icon: <FundProjectionScreenOutlined /> },
   { label: <Link to="product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
-  { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
 ];
@@ -36,7 +35,6 @@ const MENU_ITEMS_ADMIN = [
   { label: <Link to="/">Home</Link>, key: 'home', icon: <HomeOutlined /> },
   { label: <Link to="project">Project</Link>, key: 'project', icon: <FundProjectionScreenOutlined /> },
   { label: <Link to="product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
-  { label: 'Feedbacks', key: 'feedbacks', icon: <CarryOutOutlined /> },
   { label: <Link to="faq">FaQ</Link>, key: 'faqs', icon: <CommentOutlined /> },
   { label: <Link to="aboutus">About Us</Link>, key: 'aboutus', icon: <ApartmentOutlined /> },
   { label: <Link to="admin">Admin</Link>, key: 'admin', icon: <SettingOutlined /> },
