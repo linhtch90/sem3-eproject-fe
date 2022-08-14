@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notification, Row, Select, Steps, Table } from 'antd';
 
 import { getAllInvoices, getAllInvoicesByUserId, updateInvoice } from '../feature/invoice/InvoiceSlice';
+import { getAllItemsByInvoiceId } from '../feature/invoiceitem/InvoiceitemSlice';
 
 const { Step } = Steps;
 const { Option } = Select;
@@ -31,9 +32,6 @@ const statusList = [
 ];
 
 const AdminInvoiceManagement = () => {
-  const [api, contextHolder] = notification.useNotification();
-
-  const localUserId = localStorage.getItem('userid');
   const dispatch = useDispatch();
   const invoices = useSelector((state) => state.invoiceReducer.invoices);
   const invoiceitems = useSelector((state) => state.invoiceitemReducer.invoiceitems);
@@ -47,7 +45,7 @@ const AdminInvoiceManagement = () => {
 
   const onSelectChange = (key, newSelectedRow) => {
     const { id } = newSelectedRow[0];
-    dispatch(getAllInvoices());
+    dispatch(getAllItemsByInvoiceId({ id }));
     const invoiceStatus = invoices.find((item) => item.id === id).status;
     const statusIndex = statusList.find((item) => item.status === invoiceStatus).index;
     setCurrentInvoiceStatusIndex(statusIndex);
@@ -57,21 +55,6 @@ const AdminInvoiceManagement = () => {
   const rowSelection = {
     type: 'radio',
     onChange: onSelectChange,
-  };
-
-  const rejectInvoice = async () => {
-    if (currentInvoiceStatusIndex < 3) {
-      setCurrentInvoiceStatusIndex(statusList.find((item) => item.status === 'Rejected').index);
-      const { id, createat, totalprice, userid } = invoices.find((invoice) => invoice.id === selectInvoiceId);
-      await dispatch(updateInvoice({ id, createat, totalprice, status: 'Rejected', userid }));
-      await dispatch(getAllInvoicesByUserId({ id: localUserId }));
-    } else {
-      api.warning({
-        message: 'Cannot Reject Invoice',
-        description: 'You cannot reject the invoice because payment process was completed',
-        placement: 'bottomRight',
-      });
-    }
   };
 
   const handleSelectStatusChange = async (value) => {
