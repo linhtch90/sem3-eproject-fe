@@ -19,27 +19,26 @@ const AdminProduct = () => {
   const domains = useSelector((state) => state.domainReducer.domains);
   const services = useSelector((state) => state.serviceReducer.services);
 
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllDomains());
     dispatch(getAllServices());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     values.image = '';
-    values.upload.map(({ originFileObj }) => {
+    await values.upload.map(({ originFileObj }) => {
       const reader = new FileReader();
-      reader.onload = function (evt) {
+      reader.onload = async function (evt) {
         values.image += evt.target.result;
         const { name, price, image, description, domainid, serviceid } = values;
 
-        dispatch(
+        await dispatch(
           createNewProduct({
             name,
             price,
@@ -49,25 +48,27 @@ const AdminProduct = () => {
             serviceid,
           })
         );
+        await dispatch(getAllProducts());
+        await dispatch(getAllDomains());
+        await dispatch(getAllServices());
 
-        setReloadDataTable(!reloadDataTable);
         form.resetFields();
       };
       reader.readAsDataURL(originFileObj);
     });
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     values.images = '';
 
     if (values.upload) {
-      values.upload.map(({ originFileObj }) => {
+      await values.upload.map(({ originFileObj }) => {
         const reader = new FileReader();
-        reader.onload = function (evt) {
+        reader.onload = async function (evt) {
           values.images += evt.target.result;
           const { name, price, image, description, domainid, serviceid } = values;
 
-          dispatch(
+          await dispatch(
             updateProduct({
               id: selectedRow[0].id,
               name,
@@ -78,8 +79,10 @@ const AdminProduct = () => {
               serviceid,
             })
           );
+          await dispatch(getAllProducts());
+          await dispatch(getAllDomains());
+          await dispatch(getAllServices());
 
-          setReloadDataTable(!reloadDataTable);
           form.resetFields();
         };
         reader.readAsDataURL(originFileObj);
@@ -87,7 +90,7 @@ const AdminProduct = () => {
     } else {
       const { name, price, image, description, domainid, serviceid } = values;
 
-      dispatch(
+      await dispatch(
         updateProduct({
           id: selectedRow[0].id,
           name,
@@ -98,16 +101,21 @@ const AdminProduct = () => {
           serviceid,
         })
       );
+      await dispatch(getAllProducts());
+      await dispatch(getAllDomains());
+      await dispatch(getAllServices());
 
-      setReloadDataTable(!reloadDataTable);
       setSelectedRow([]);
       form.resetFields();
     }
   };
 
-  const handleDeleteProduct = () => {
-    dispatch(deleteProduct({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteProduct = async () => {
+    await dispatch(deleteProduct({ id: selectedRow[0].id }));
+    await dispatch(getAllProducts());
+    await dispatch(getAllDomains());
+    await dispatch(getAllServices());
+
     setSelectedRow([]);
     form.resetFields();
   };

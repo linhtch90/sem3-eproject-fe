@@ -7,48 +7,48 @@ import { createNewFaq, deleteFaq, getAllFaqs, updateFaq } from '../feature/admin
 
 const AdminFaq = () => {
   const dispatch = useDispatch();
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllFaqs());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { question, answer } = values;
-    dispatch(
+    await dispatch(
       createNewFaq({
         question,
         answer,
       })
     );
+    await dispatch(getAllFaqs());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { question, answer } = values;
 
-    dispatch(
+    await dispatch(
       updateFaq({
         id: selectedRow[0].id,
         question,
         answer,
       })
     );
+    await dispatch(getAllFaqs());
 
-    setReloadDataTable(!reloadDataTable);
     setSelectedRow([]);
     form.resetFields();
   };
 
-  const handleDeleteFaq = () => {
-    dispatch(deleteFaq({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteFaq = async () => {
+    await dispatch(deleteFaq({ id: selectedRow[0].id }));
+    await dispatch(getAllFaqs());
+
     setSelectedRow([]);
     form.resetFields();
   };

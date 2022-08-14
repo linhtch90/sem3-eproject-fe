@@ -13,40 +13,40 @@ import {
 const AdminAboutUs = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = React.useState([]);
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
 
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { content } = values;
-    dispatch(
+    await dispatch(
       createNewAboutUs({
         content,
       })
     );
+    await dispatch(getAllAboutUs());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { content } = values;
 
-    dispatch(
+    await dispatch(
       updateAboutUs({
         id: selectedRow[0].id,
         content,
       })
     );
+    await dispatch(getAllAboutUs());
 
-    setReloadDataTable(!reloadDataTable);
     setSelectedRow([]);
     form.resetFields();
   };
 
-  const handleDeleteAboutUs = () => {
-    dispatch(deleteAboutUs({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteAboutUs = async () => {
+    await dispatch(deleteAboutUs({ id: selectedRow[0].id }));
+    await dispatch(getAllAboutUs());
+
     setSelectedRow([]);
     form.resetFields();
   };
@@ -69,7 +69,7 @@ const AdminAboutUs = () => {
 
   React.useEffect(() => {
     dispatch(getAllAboutUs());
-  }, [reloadDataTable]);
+  }, []);
 
   return (
     <div>

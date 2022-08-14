@@ -12,25 +12,24 @@ import {
 
 const AdminProject = () => {
   const dispatch = useDispatch();
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllProjects());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     values.image = '';
-    values.upload.map(({ originFileObj }) => {
+    await values.upload.map(({ originFileObj }) => {
       const reader = new FileReader();
-      reader.onload = function (evt) {
+      reader.onload = async function (evt) {
         values.image += evt.target.result;
         const { name, status, image, description } = values;
 
-        dispatch(
+        await dispatch(
           createNewProject({
             name,
             status,
@@ -39,24 +38,25 @@ const AdminProject = () => {
           })
         );
 
-        setReloadDataTable(!reloadDataTable);
+        await dispatch(getAllProjects());
+
         form.resetFields();
       };
       reader.readAsDataURL(originFileObj);
     });
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     values.images = '';
 
     if (values.upload) {
-      values.upload.map(({ originFileObj }) => {
+      await values.upload.map(({ originFileObj }) => {
         const reader = new FileReader();
-        reader.onload = function (evt) {
+        reader.onload = async function (evt) {
           values.images += evt.target.result;
           const { name, status, image, description } = values;
 
-          dispatch(
+          await dispatch(
             updateProject({
               id: selectedRow[0].id,
               name,
@@ -66,7 +66,8 @@ const AdminProject = () => {
             })
           );
 
-          setReloadDataTable(!reloadDataTable);
+          await dispatch(getAllProjects());
+
           form.resetFields();
         };
         reader.readAsDataURL(originFileObj);
@@ -74,7 +75,7 @@ const AdminProject = () => {
     } else {
       const { name, status, image, description } = values;
 
-      dispatch(
+      await dispatch(
         updateProject({
           id: selectedRow[0].id,
           name,
@@ -84,15 +85,17 @@ const AdminProject = () => {
         })
       );
 
-      setReloadDataTable(!reloadDataTable);
+      await dispatch(getAllProjects());
+
       setSelectedRow([]);
       form.resetFields();
     }
   };
 
-  const handleDeleteProject = () => {
-    dispatch(deleteProject({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteProject = async () => {
+    await dispatch(deleteProject({ id: selectedRow[0].id }));
+    await dispatch(getAllProjects());
+
     setSelectedRow([]);
     form.resetFields();
   };

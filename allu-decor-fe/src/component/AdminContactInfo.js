@@ -13,13 +13,12 @@ import {
 const AdminContactInfo = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = React.useState([]);
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
 
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { address, ward, city, phone, email } = values;
-    dispatch(
+    await dispatch(
       createNewContactInfo({
         address,
         ward,
@@ -28,15 +27,14 @@ const AdminContactInfo = () => {
         email,
       })
     );
+    await dispatch(getAllContactInfos());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { address, ward, city, phone, email } = values;
-
-    dispatch(
+    await dispatch(
       updateContactInfo({
         id: selectedRow[0].id,
         address,
@@ -46,15 +44,16 @@ const AdminContactInfo = () => {
         email,
       })
     );
+    await dispatch(getAllContactInfos());
 
-    setReloadDataTable(!reloadDataTable);
     setSelectedRow([]);
     form.resetFields();
   };
 
-  const handleDeleteContactInfo = () => {
-    dispatch(deleteContactInfo({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteContactInfo = async () => {
+    await dispatch(deleteContactInfo({ id: selectedRow[0].id }));
+    await dispatch(getAllContactInfos());
+
     setSelectedRow([]);
     form.resetFields();
   };
@@ -83,7 +82,7 @@ const AdminContactInfo = () => {
 
   React.useEffect(() => {
     dispatch(getAllContactInfos());
-  }, [reloadDataTable]);
+  }, []);
 
   return (
     <div>

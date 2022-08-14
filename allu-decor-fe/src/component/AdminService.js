@@ -12,46 +12,46 @@ import {
 
 const AdminService = () => {
   const dispatch = useDispatch();
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllServices());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { name } = values;
-    dispatch(
+    await dispatch(
       createNewService({
         name,
       })
     );
+    await dispatch(getAllServices());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { name } = values;
 
-    dispatch(
+    await dispatch(
       updateService({
         id: selectedRow[0].id,
         name,
       })
     );
+    await dispatch(getAllServices());
 
-    setReloadDataTable(!reloadDataTable);
     setSelectedRow([]);
     form.resetFields();
   };
 
-  const handleDeleteDomain = () => {
-    dispatch(deleteService({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteDomain = async () => {
+    await dispatch(deleteService({ id: selectedRow[0].id }));
+    await dispatch(getAllServices());
+
     setSelectedRow([]);
     form.resetFields();
   };

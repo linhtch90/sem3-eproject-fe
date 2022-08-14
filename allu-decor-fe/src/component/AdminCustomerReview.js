@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CarryOutOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Select, Table, Upload } from 'antd';
+import { Button, Col, Form, Input, Row, Table, Upload } from 'antd';
 
 import {
   createNewCustomerReview,
@@ -12,25 +12,24 @@ import {
 
 const AdminCustomerReview = () => {
   const dispatch = useDispatch();
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllCustomerReviews());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     values.image = '';
-    values.upload.map(({ originFileObj }) => {
+    await values.upload.map(({ originFileObj }) => {
       const reader = new FileReader();
-      reader.onload = function (evt) {
+      reader.onload = async function (evt) {
         values.image += evt.target.result;
         const { firstname, lastname, company, content, image } = values;
 
-        dispatch(
+        await dispatch(
           createNewCustomerReview({
             firstname,
             lastname,
@@ -39,25 +38,25 @@ const AdminCustomerReview = () => {
             image,
           })
         );
+        await dispatch(getAllCustomerReviews());
 
-        setReloadDataTable(!reloadDataTable);
         form.resetFields();
       };
       reader.readAsDataURL(originFileObj);
     });
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     values.images = '';
 
     if (values.upload) {
-      values.upload.map(({ originFileObj }) => {
+      await values.upload.map(({ originFileObj }) => {
         const reader = new FileReader();
-        reader.onload = function (evt) {
+        reader.onload = async function (evt) {
           values.images += evt.target.result;
           const { firstname, lastname, company, content, image } = values;
 
-          dispatch(
+          await dispatch(
             updateCustomerReview({
               id: selectedRow[0].id,
               firstname,
@@ -67,8 +66,8 @@ const AdminCustomerReview = () => {
               image,
             })
           );
+          await dispatch(getAllCustomerReviews());
 
-          setReloadDataTable(!reloadDataTable);
           form.resetFields();
         };
         reader.readAsDataURL(originFileObj);
@@ -76,7 +75,7 @@ const AdminCustomerReview = () => {
     } else {
       const { firstname, lastname, company, content, image } = values;
 
-      dispatch(
+      await dispatch(
         updateCustomerReview({
           id: selectedRow[0].id,
           firstname,
@@ -86,16 +85,17 @@ const AdminCustomerReview = () => {
           image,
         })
       );
+      await dispatch(getAllCustomerReviews());
 
-      setReloadDataTable(!reloadDataTable);
       setSelectedRow([]);
       form.resetFields();
     }
   };
 
-  const handleDeleteCustomerReview = () => {
-    dispatch(deleteCustomerReview({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteCustomerReview = async () => {
+    await dispatch(deleteCustomerReview({ id: selectedRow[0].id }));
+    await dispatch(getAllCustomerReviews());
+
     setSelectedRow([]);
     form.resetFields();
   };

@@ -26,9 +26,9 @@ const AdminUser = () => {
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { firstname, lastname, address, district, city, phone, email, password } = values;
-    dispatch(
+    await dispatch(
       createNewUser({
         firstname,
         lastname,
@@ -40,15 +40,15 @@ const AdminUser = () => {
         password,
       })
     );
+    await dispatch(getAllUsers());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { firstname, lastname, address, district, city, phone, email, password } = values;
     if (password) {
-      dispatch(
+      await dispatch(
         updateUser({
           id: selectedRow[0].id,
           firstname,
@@ -62,7 +62,7 @@ const AdminUser = () => {
         })
       );
     } else {
-      dispatch(
+      await dispatch(
         updateUserWithoutPassword({
           id: selectedRow[0].id,
           firstname,
@@ -76,13 +76,15 @@ const AdminUser = () => {
       );
     }
 
-    setReloadDataTable(!reloadDataTable);
+    await dispatch(getAllUsers());
+
     form.resetFields();
   };
 
-  const handleDeleteUser = () => {
-    dispatch(deleteUser({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteUser = async () => {
+    await dispatch(deleteUser({ id: selectedRow[0].id }));
+    await dispatch(getAllUsers());
+
     setSelectedRow([]);
     form.resetFields();
   };

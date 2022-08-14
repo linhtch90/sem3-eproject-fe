@@ -1,52 +1,53 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined, UploadOutlined } from '@ant-design/icons';
+import { CarryOutOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Table } from 'antd';
 
 import { createNewDomain, deleteDomain, getAllDomains, updateDomain } from '../feature/admin_domain/AdminDomainSlice';
 
 const AdminDomain = () => {
   const dispatch = useDispatch();
-  const [reloadDataTable, setReloadDataTable] = React.useState(true);
+
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllDomains());
-  }, [reloadDataTable]);
+  }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = (values) => {
+  const handleOnFinishCreate = async (values) => {
     const { name } = values;
-    dispatch(
+    await dispatch(
       createNewDomain({
         name,
       })
     );
+    await dispatch(getAllDomains());
 
-    setReloadDataTable(!reloadDataTable);
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { name } = values;
 
-    dispatch(
+    await dispatch(
       updateDomain({
         id: selectedRow[0].id,
         name,
       })
     );
+    await dispatch(getAllDomains());
 
-    setReloadDataTable(!reloadDataTable);
     setSelectedRow([]);
     form.resetFields();
   };
 
-  const handleDeleteDomain = () => {
-    dispatch(deleteDomain({ id: selectedRow[0].id }));
-    setReloadDataTable(!reloadDataTable);
+  const handleDeleteDomain = async () => {
+    await dispatch(deleteDomain({ id: selectedRow[0].id }));
+    await dispatch(getAllDomains());
+
     setSelectedRow([]);
     form.resetFields();
   };
