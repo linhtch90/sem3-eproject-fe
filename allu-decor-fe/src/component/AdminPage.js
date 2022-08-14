@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { ProjectOutlined, ShopOutlined, UserOutlined, WechatOutlined } from '@ant-design/icons';
+import { ProjectOutlined, QuestionCircleOutlined, ShopOutlined, UserOutlined, WechatOutlined } from '@ant-design/icons';
 import { Col, Menu, Row } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
@@ -15,6 +15,7 @@ const adminMenu = [
   { label: <Link to="/admin/aboutu">AboutUs</Link>, key: 'aboutu', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/domain">Domain</Link>, key: 'domain', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/service">Service</Link>, key: 'service', icon: <ProjectOutlined /> },
+  { label: <Link to="/admin/faq">Faq</Link>, key: 'faq', icon: <QuestionCircleOutlined /> },
 ];
 
 const AdminPage = () => {
