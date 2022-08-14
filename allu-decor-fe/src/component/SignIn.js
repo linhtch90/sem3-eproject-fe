@@ -2,19 +2,38 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 
 import { signIn } from '../feature/user/UserSlice';
+
+const openNotification = () => {
+  notification.info({
+    message: `Please Try Again`,
+    description: 'Your sign in information is incorrect. Please try again!',
+    placement: 'bottomRight',
+  });
+};
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const handleOnFinish = (values) => {
-    dispatch(signIn({ email: values.email, password: values.password }));
-    form.resetFields();
-    navigate('/');
+  const user = useSelector((state) => state.userReducer.user);
+
+  const checkSignIn = () => {
+    if (user && user.status === 'ok') {
+      form.resetFields();
+      navigate('/');
+    } else {
+      form.resetFields();
+      openNotification();
+    }
+  };
+
+  const handleOnFinish = async (values) => {
+    await dispatch(signIn({ email: values.email, password: values.password }));
+    await checkSignIn();
   };
 
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
+import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Select, Table, Upload } from 'antd';
+import { CarryOutOutlined, SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Col, Form, Input, Row, Select, Space, Table, Upload } from 'antd';
 
 import {
   createNewProduct,
@@ -131,11 +132,132 @@ const AdminProduct = () => {
 
   // Table
 
+  const [searchText, setSearchText] = React.useState('');
+  const [searchedColumn, setSearchedColumn] = React.useState('');
+  const searchInput = React.useRef(null);
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText('');
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+      >
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: 'block',
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+          {/* <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({
+                closeDropdown: false,
+              });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button> */}
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? '#1890ff' : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: '#ffc069',
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  });
+
   const columns = [
-    { title: 'Name', dataIndex: 'name' },
-    { title: 'Price', dataIndex: 'price' },
-    { title: 'Domain', dataIndex: 'domain' },
-    { title: 'Service', dataIndex: 'service' },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      ...getColumnSearchProps('name'),
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      sorter: (a, b) => a.price - b.price,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Domain',
+      dataIndex: 'domain',
+      sorter: (a, b) => a.domain.localeCompare(b.domain),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Service',
+      dataIndex: 'service',
+      sorter: (a, b) => a.service.localeCompare(b.service),
+      sortDirections: ['descend', 'ascend'],
+    },
   ];
 
   const onSelectChange = (key, newSelectedRow) => {
