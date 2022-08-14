@@ -42,12 +42,11 @@ const CustomerReviewComponent = () => {
                       <Col
                         style={{
                           width: '100%',
-                          background: '#F9F5D7',
                           height: '26rem',
                           padding: '2rem',
-                          borderWidth: '0.5rem',
-                          borderColor: '#83A598',
-                          borderStyle: 'solid',
+                          backgroundImage:
+                            'linear-gradient(to right bottom, #83a598, #9eb9a6, #bbcdb4, #dae1c4, #f9f5d7)',
+                          borderRadius: '6px',
                         }}
                       >
                         <img src={pair.image} style={{ width: '20%', borderRadius: '50%' }} />
