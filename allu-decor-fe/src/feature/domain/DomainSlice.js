@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllDomainsUrl = 'https://localhost:44302/api/domain';
+const getAllDomainsUrl = 'https://localhost:44302/api/Domain';
 
 const initialState = {
   domains: null,

@@ -1,21 +1,25 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Col, Image, Input, Row, Spin, Typography } from 'antd';
+import { Button, Col, Image, Input, Row, Select, Spin, Typography } from 'antd';
 
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
-import { addToCart, getCartProductById } from '../feature/cart/CartSlice';
-import { getProductByName } from '../feature/product/ProductSlice';
+import { addToCart } from '../feature/cart/CartSlice';
+import { getAllDomains } from '../feature/domain/DomainSlice';
+import { filterProductByDomain, getProductByName } from '../feature/product/ProductSlice';
 
 const { Title } = Typography;
 const { Search } = Input;
+const { Option } = Select;
 
 const ProductHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
+  const domains = useSelector((state) => state.domainReducer.domains);
 
   React.useEffect(() => {
+    dispatch(getAllDomains());
     dispatch(getAllProducts());
   }, []);
 
@@ -24,13 +28,21 @@ const ProductHome = () => {
   };
 
   const handleSearch = (value) => {
-    dispatch(getProductByName({ name: value }));
+    if (value) {
+      dispatch(getProductByName({ name: value }));
+    } else {
+      dispatch(getAllProducts());
+    }
+  };
+
+  const handleFilterByDomain = (value) => {
+    dispatch(filterProductByDomain({ id: value }));
   };
 
   return (
     <Col>
       <Row justify="center" style={{ marginTop: '4rem' }}>
-        <Col span={12}>
+        <Col span={12} style={{ marginRight: '2rem' }}>
           <Search
             placeholder="Enter Product Name..."
             allowClear
@@ -38,6 +50,17 @@ const ProductHome = () => {
             size="large"
             onSearch={handleSearch}
           />
+        </Col>
+        <Col span={4}>
+          <Select placeholder="Filter by Domain" onChange={handleFilterByDomain} style={{ width: '100%' }} size="large">
+            {domains
+              ? domains.map((domain) => (
+                  <Option key={domain.id} value={domain.id}>
+                    {domain.name}
+                  </Option>
+                ))
+              : null}
+          </Select>
         </Col>
       </Row>
       <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
