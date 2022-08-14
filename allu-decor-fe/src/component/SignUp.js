@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAddOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Row, Typography } from 'antd';
 import axios from 'axios';
+
+const { Title } = Typography;
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -34,7 +36,20 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ width: '80%', margin: 'auto' }}>
+    <div style={{ width: '80%', margin: 'auto', marginTop: '4rem', marginBottom: '4rem' }}>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '4rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Sign Up
+        </Title>
+      </Row>
       <Form
         form={form}
         name="basic"

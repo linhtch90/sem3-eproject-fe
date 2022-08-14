@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
-import { Button, Form, Input, notification } from 'antd';
+import { Button, Form, Input, notification, Row, Typography } from 'antd';
 
 import { signIn } from '../feature/user/UserSlice';
 
@@ -13,6 +13,8 @@ const openNotification = () => {
     placement: 'bottomRight',
   });
 };
+
+const { Title } = Typography;
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -42,7 +44,20 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div style={{ width: '80%', margin: 'auto' }}>
+    <div style={{ width: '80%', margin: 'auto', marginTop: '4rem', marginBottom: '12rem' }}>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '4rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Sign In
+        </Title>
+      </Row>
       <Form
         name="basic"
         layout="vertical"
