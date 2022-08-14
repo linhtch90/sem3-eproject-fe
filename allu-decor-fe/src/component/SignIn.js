@@ -25,7 +25,8 @@ const SignIn = () => {
     if (user && user.status === 'ok') {
       form.resetFields();
       navigate('/');
-    } else {
+    }
+    if (user && user.status === 'fail') {
       form.resetFields();
       openNotification();
     }
@@ -35,6 +36,10 @@ const SignIn = () => {
     await dispatch(signIn({ email: values.email, password: values.password }));
     await checkSignIn();
   };
+
+  React.useEffect(() => {
+    checkSignIn();
+  }, [user]);
 
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
