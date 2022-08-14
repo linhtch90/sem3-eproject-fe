@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const getAllProductsUrl = 'https://localhost:44302/api/product';
 const getProductByIdUrl = 'https://localhost:44302/api/product/';
+const getProductByNameUrl = 'https://localhost:44302/api/product/searchbyname';
 
 const initialState = {
   products: null,
@@ -28,6 +29,18 @@ export const getProductById = createAsyncThunk('/api/product/id', async ({ id },
   return response.data.responseObject;
 });
 
+export const getProductByName = createAsyncThunk('/api/product/searchbyname', async ({ name }, thunkApi) => {
+  const response = await axios({
+    method: 'post',
+    url: getProductByNameUrl,
+    data: {
+      name,
+    },
+  });
+
+  return response.data.responseObject;
+});
+
 export const productSlice = createSlice({
   name: 'productSlice',
   initialState,
@@ -38,6 +51,9 @@ export const productSlice = createSlice({
     });
     builder.addCase(getProductById.fulfilled, (state, action) => {
       state.productDetail = action.payload;
+    });
+    builder.addCase(getProductByName.fulfilled, (state, action) => {
+      state.products = action.payload;
     });
   },
 });
