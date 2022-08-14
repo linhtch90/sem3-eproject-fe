@@ -7,11 +7,11 @@ import ProjectDetail from '../sub-component/ProjectDetail';
 
 import AdminAboutUs from './AdminAboutUs';
 import AdminContactInfo from './AdminContactInfo';
-import AdminChangePassword from './AdminChangePassword';
 import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
 import AdminFaq from './AdminFaq';
 import AdminHome from './AdminHome';
+import AdminInvoiceManagement from './AdminInvoiceManagement';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
@@ -55,6 +55,7 @@ const AppContainer = () => {
                 <Route index element={<AdminHome />} />
                 <Route path="project" element={<AdminProject />} />
                 <Route path="product" element={<AdminProduct />} />
+                <Route path="invoice" element={<AdminInvoiceManagement />} />
                 <Route path="customerreview" element={<AdminCustomerReview />} />
                 <Route path="contactinfo" element={<AdminContactInfo />} />
                 <Route path="aboutu" element={<AdminAboutUs />} />
