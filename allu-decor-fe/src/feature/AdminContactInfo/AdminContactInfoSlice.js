@@ -18,6 +18,9 @@ export const getAllContactInfos = createAsyncThunk('/api/ContactInfo', async (th
   const response = await axios({
     method: 'get',
     url: getAllContactInfoUrl,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
   });
   response.data.responseObject.map((item) => (item.key = item.id));
 

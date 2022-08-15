@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CarryOutOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Table } from 'antd';
+import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
 
 import {
   createNewContactInfo,
@@ -9,6 +9,8 @@ import {
   getAllContactInfos,
   updateContactInfo,
 } from '../feature/AdminContactInfo/AdminContactInfoSlice';
+
+const { Title } = Typography;
 
 const AdminContactInfo = () => {
   const dispatch = useDispatch();
@@ -85,16 +87,35 @@ const AdminContactInfo = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Admin ContactInfo Page</h1>
+    <div style={{ padding: 16 }}>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '3rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '4px 4px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Admin Contact Info Page
+        </Title>
+      </Row>
+
       <Col span={24}>
         <Row justify="center" gutter={16}>
           <Col span={16}>
-            <h1>Data Table</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Data Table
+            </Title>
+
             <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
           </Col>
           <Col span={8}>
-            <h1>Contact Info Info</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Contact Info
+            </Title>
+
             <Form
               form={form}
               name="basic"

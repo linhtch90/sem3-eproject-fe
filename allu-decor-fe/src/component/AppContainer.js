@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import AboutUsDemo from '../sub-component/AboutUsDemo';
 import ProjectDetail from '../sub-component/ProjectDetail';
 
+import AboutUsPage from './AboutUsPage';
 import AdminAboutUs from './AdminAboutUs';
 import AdminContactInfo from './AdminContactInfo';
 import AdminCustomerReview from './AdminCustomerReview';
@@ -45,7 +46,7 @@ const AppContainer = () => {
           <Layout>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="aboutus" element={<AboutUsDemo />} />
+              <Route path="aboutus" element={<AboutUsPage />} />
               <Route path="faq" element={<FaqPage />} />
               <Route path="project" element={<ProjectPage />}>
                 <Route path="project/projectDetail/id?id=:projectId" element={<ProjectDetail />} />

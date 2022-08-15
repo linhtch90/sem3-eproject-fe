@@ -18,6 +18,9 @@ export const getAllAboutUs = createAsyncThunk('/api/Aboutu', async (thunkApi) =>
   const response = await axios({
     method: 'get',
     url: getAllAboutUsUrl,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
   });
   response.data.responseObject.map((item) => (item.key = item.id));
 

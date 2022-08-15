@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { notification, Row, Select, Steps, Table } from 'antd';
+import { Col, notification, Row, Select, Steps, Table, Typography } from 'antd';
 
 import { getAllInvoices, getAllInvoicesByUserId, updateInvoice } from '../feature/invoice/InvoiceSlice';
 import { getAllItemsByInvoiceId } from '../feature/invoiceitem/InvoiceitemSlice';
+const { Title } = Typography;
 
 const { Step } = Steps;
 const { Option } = Select;
@@ -65,37 +66,60 @@ const AdminInvoiceManagement = () => {
   };
 
   return (
-    <div style={{ width: '80%', margin: 'auto' }}>
-      <h1>Invoice</h1>
-      <Table columns={invoiceColumns} dataSource={invoices} rowSelection={rowSelection} />
+    <div style={{ padding: 16 }}>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '3rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '4px 4px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Admin Invoice Page
+        </Title>
+      </Row>
+      <Col span={24}>
+        <Title level={4} style={{ color: '#D65D0E' }}>
+          Invoice
+        </Title>
 
-      <h1>Equivalent Invoice Items</h1>
-      <Table columns={invoiceItemColumns} dataSource={invoiceitems} />
+        <Table columns={invoiceColumns} dataSource={invoices} rowSelection={rowSelection} />
+        <Title level={4} style={{ color: '#D65D0E' }}>
+          Equivalent Invoice Items
+        </Title>
 
-      {currentInvoiceStatusIndex < 6 ? (
-        <div>
-          <h1>Status</h1>
-          <Steps current={currentInvoiceStatusIndex}>
-            {statusList.map((statusItem) => (
-              <Step title={statusItem.status} description={''} key={statusItem.index} />
-            ))}
-          </Steps>
-          {/* <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
+        <Table columns={invoiceItemColumns} dataSource={invoiceitems} />
+
+        {currentInvoiceStatusIndex < 6 ? (
+          <div>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Status
+            </Title>
+
+            <Steps current={currentInvoiceStatusIndex}>
+              {statusList.map((statusItem) => (
+                <Step title={statusItem.status} description={''} key={statusItem.index} />
+              ))}
+            </Steps>
+            {/* <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
             <Button type="primary" shape="round" onClick={rejectInvoice}>
               Reject Invoice
             </Button>
           </Row> */}
-          <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
-            <Select placeholder="Select Invoice Status" onChange={handleSelectStatusChange}>
-              {statusList.map((statusItem) => (
-                <Option key={statusItem.index} value={statusItem.status}>
-                  {statusItem.status}
-                </Option>
-              ))}
-            </Select>
-          </Row>
-        </div>
-      ) : null}
+            <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
+              <Select placeholder="Select Invoice Status" onChange={handleSelectStatusChange}>
+                {statusList.map((statusItem) => (
+                  <Option key={statusItem.index} value={statusItem.status}>
+                    {statusItem.status}
+                  </Option>
+                ))}
+              </Select>
+            </Row>
+          </div>
+        ) : null}
+      </Col>
     </div>
   );
 };

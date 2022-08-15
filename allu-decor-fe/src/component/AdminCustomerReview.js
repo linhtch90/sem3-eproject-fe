@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CarryOutOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Table, Upload } from 'antd';
+import { Button, Col, Form, Input, Row, Table, Typography, Upload } from 'antd';
 
 import {
   createNewCustomerReview,
@@ -9,6 +9,8 @@ import {
   getAllCustomerReviews,
   updateCustomerReview,
 } from '../feature/admin_customerreview/AdminCustomerReviewSlice';
+
+const { Title } = Typography;
 
 const AdminCustomerReview = () => {
   const dispatch = useDispatch();
@@ -132,15 +134,34 @@ const AdminCustomerReview = () => {
 
   return (
     <div style={{ padding: 16 }}>
-      <h1>Admin Customer Review Page</h1>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '3rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '4px 4px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Admin Customer Review Page
+        </Title>
+      </Row>
+
       <Col span={24}>
         <Row justify="center" gutter={16}>
           <Col span={16}>
-            <h1>Data Table</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Data Table
+            </Title>
+
             <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
           </Col>
           <Col span={8}>
-            <h1>Customer Review Info</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Customer Review Info
+            </Title>
+
             <Form
               form={form}
               name="basic"

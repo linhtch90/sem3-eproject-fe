@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CarryOutOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Table } from 'antd';
+import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
 
 import {
   createNewUser,
@@ -12,6 +12,7 @@ import {
   updateUserWithoutPassword,
 } from '../feature/admin_user/AdminUserSlice';
 
+const { Title } = Typography;
 const AdminUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -124,10 +125,25 @@ const AdminUser = () => {
 
   return (
     <div style={{ padding: 16 }}>
-      <h1>Admin User Page</h1>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '3rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '4px 4px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Admin User Page
+        </Title>
+      </Row>
+
       <Row>
         <Col span={24}>
-          <h1>Data Table</h1>
+          <Title level={4} style={{ color: '#D65D0E' }}>
+            Data Table
+          </Title>
         </Col>
         <Col span={24}>
           <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
@@ -135,7 +151,9 @@ const AdminUser = () => {
       </Row>
       <Row>
         <Col span={24}>
-          <h1>User Info</h1>
+          <Title level={4} style={{ color: '#D65D0E' }}>
+            User Info
+          </Title>
         </Col>
       </Row>
       <Row justify="center">

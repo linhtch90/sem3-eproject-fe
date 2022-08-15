@@ -2,7 +2,7 @@ import React from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { CarryOutOutlined, SearchOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Select, Space, Table, Upload } from 'antd';
+import { Button, Col, Form, Input, Row, Select, Space, Table, Typography, Upload } from 'antd';
 
 import {
   createNewProduct,
@@ -12,6 +12,8 @@ import {
 } from '../feature/admin_product/AdminProductSlice';
 import { getAllDomains } from '../feature/domain/DomainSlice';
 import { getAllServices } from '../feature/service/ServiceSlice';
+
+const { Title } = Typography;
 
 const AdminProduct = () => {
   const dispatch = useDispatch();
@@ -273,15 +275,34 @@ const AdminProduct = () => {
 
   return (
     <div style={{ padding: 16 }}>
-      <h1>Admin Product Page</h1>
+      <Row justify="center">
+        <Title
+          style={{
+            color: '#076678',
+            fontSize: '3rem',
+            fontWeight: 'bolder',
+            textAlign: 'left',
+            textShadow: '4px 4px 0px rgba(131,165,152,0.7)',
+          }}
+        >
+          Admin Product Page
+        </Title>
+      </Row>
+
       <Col span={24}>
         <Row justify="center" gutter={16}>
           <Col span={16}>
-            <h1>Data Table</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Data Table
+            </Title>
+
             <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
           </Col>
           <Col span={8}>
-            <h1>Project Info</h1>
+            <Title level={4} style={{ color: '#D65D0E' }}>
+              Product Info
+            </Title>
+
             <Form
               form={form}
               name="basic"
