@@ -44,16 +44,15 @@ const CustomerReviewComponent = () => {
                           width: '100%',
                           height: '26rem',
                           padding: '2rem',
-                          backgroundImage:
-                            'linear-gradient(to right bottom, #83a598, #9eb9a6, #bbcdb4, #dae1c4, #f9f5d7)',
+                          backgroundImage: 'linear-gradient(to right top, #e94885, #ff605a, #ff8d24, #e7be00, #a8eb12)',
                           borderRadius: '6px',
                         }}
                       >
                         <img src={pair.image} style={{ width: '20%', borderRadius: '50%' }} />
-                        <Title level={4} style={{ color: '#B16286' }}>
+                        <Title level={4} style={{ color: '#076678' }}>
                           {pair.firstname + ' ' + pair.lastname}
                         </Title>
-                        <Title level={3} style={{ color: '#D65D0E' }}>
+                        <Title level={3} style={{ color: '#076678' }}>
                           {pair.company}
                         </Title>
                         <Title level={5}>{'"' + pair.content + '"'}</Title>

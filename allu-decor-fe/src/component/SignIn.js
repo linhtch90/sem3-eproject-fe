@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { Button, Form, Input, notification, Row, Typography } from 'antd';
 
-import { signIn } from '../feature/user/UserSlice';
+import { resetUser, signIn } from '../feature/user/UserSlice';
 
 const openNotification = () => {
   notification.info({
@@ -29,6 +29,7 @@ const SignIn = () => {
       navigate('/');
     }
     if (user && user.status === 'fail') {
+      dispatch(resetUser());
       form.resetFields();
       openNotification();
     }
