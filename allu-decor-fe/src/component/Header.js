@@ -149,7 +149,7 @@ const Header = () => {
                     </Badge>
                   </Dropdown>
 
-                  {user && user.status === 'ok' && localStorage.getItem('userFirstname') ? (
+                  {localStorage.getItem('userFirstname') ? (
                     <>
                       <Dropdown overlay={menu} placement="bottomRight">
                         <Avatar style={{ backgroundColor: '#1890ff' }}>
