@@ -74,6 +74,9 @@ const Header = () => {
     localStorage.removeItem('userrole');
     localStorage.removeItem('userFirstname');
     localStorage.removeItem('userid');
+    localStorage.removeItem('userAddress');
+    localStorage.removeItem('userDistrict');
+    localStorage.removeItem('userCity');
     navigate('/');
   };
 
