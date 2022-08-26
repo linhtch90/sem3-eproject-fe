@@ -6,6 +6,7 @@ const getAllProductsUrl = 'https://localhost:44302/api/product';
 const getProductByIdUrl = 'https://localhost:44302/api/product/';
 const getProductByNameUrl = 'https://localhost:44302/api/product/searchbyname';
 const filterProductByDomainUrl = 'https://localhost:44302/api/product/filterbydomainid';
+const filterProductByServiceUrl = 'https://localhost:44302/api/product/filterbyserviceid';
 
 const initialState = {
   products: null,
@@ -54,6 +55,18 @@ export const filterProductByDomain = createAsyncThunk('/api/product/filterbydoma
   return response.data.responseObject;
 });
 
+export const filterProductByService = createAsyncThunk('/api/product/filterbyserviceid', async ({ id }, thunkApi) => {
+  const response = await axios({
+    method: 'post',
+    url: filterProductByServiceUrl,
+    data: {
+      id,
+    },
+  });
+
+  return response.data.responseObject;
+});
+
 export const productSlice = createSlice({
   name: 'productSlice',
   initialState,
@@ -69,6 +82,9 @@ export const productSlice = createSlice({
       state.products = action.payload;
     });
     builder.addCase(filterProductByDomain.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(filterProductByService.fulfilled, (state, action) => {
       state.products = action.payload;
     });
   },

@@ -6,7 +6,8 @@ import { Button, Col, Image, Input, Row, Select, Spin, Typography } from 'antd';
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
 import { addToCart } from '../feature/cart/CartSlice';
 import { getAllDomains } from '../feature/domain/DomainSlice';
-import { filterProductByDomain, getProductByName } from '../feature/product/ProductSlice';
+import { filterProductByDomain, filterProductByService, getProductByName } from '../feature/product/ProductSlice';
+import { getAllServices } from '../feature/service/ServiceSlice';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -17,9 +18,11 @@ const ProductHome = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
   const domains = useSelector((state) => state.domainReducer.domains);
+  const services = useSelector((state) => state.serviceReducer.services);
 
   React.useEffect(() => {
     dispatch(getAllDomains());
+    dispatch(getAllServices());
     dispatch(getAllProducts());
   }, []);
 
@@ -39,10 +42,14 @@ const ProductHome = () => {
     dispatch(filterProductByDomain({ id: value }));
   };
 
+  const handleFilterByService = (value) => {
+    dispatch(filterProductByService({ id: value }));
+  };
+
   return (
     <Col>
-      <Row justify="center" style={{ marginTop: '4rem' }}>
-        <Col span={12} style={{ marginRight: '2rem' }}>
+      <Row justify="center" style={{ marginTop: '4rem' }} gutter={16}>
+        <Col span={12}>
           <Search
             placeholder="Enter Product Name..."
             allowClear
@@ -57,6 +64,22 @@ const ProductHome = () => {
               ? domains.map((domain) => (
                   <Option key={domain.id} value={domain.id}>
                     {domain.name}
+                  </Option>
+                ))
+              : null}
+          </Select>
+        </Col>
+        <Col span={4}>
+          <Select
+            placeholder="Filter by Service"
+            onChange={handleFilterByService}
+            style={{ width: '100%' }}
+            size="large"
+          >
+            {services
+              ? services.map((service) => (
+                  <Option key={service.id} value={service.id}>
+                    {service.name}
                   </Option>
                 ))
               : null}
