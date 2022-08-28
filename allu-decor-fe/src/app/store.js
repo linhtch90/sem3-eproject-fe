@@ -13,6 +13,7 @@ import cartReducer from '../feature/cart/CartSlice';
 import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
 import faqReducer from '../feature/faq/FaqSlice';
+import feedbackReducer from '../feature/feedback/FeedbackSlice';
 import invoiceReducer from '../feature/invoice/InvoiceSlice';
 import invoiceitemReducer from '../feature/invoiceitem/InvoiceitemSlice';
 import productReducer from '../feature/product/ProductSlice';
@@ -41,5 +42,6 @@ export const store = configureStore({
     adminDomainReducer,
     adminServiceReducer,
     projectReducer,
+    feedbackReducer,
   },
 });
