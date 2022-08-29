@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import adminCustomerReviewReducer from '../feature/admin_customerreview/AdminCustomerReviewSlice';
 import adminDomainReducer from '../feature/admin_domain/AdminDomainSlice';
 import adminFaqReducer from '../feature/admin_faq/AdminFaqSlice';
+import adminFeedbackReducer from '../feature/admin_feedback/AdminFeedbackSlice';
 import adminProductReducer from '../feature/admin_product/AdminProductSlice';
 import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
 import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
@@ -29,6 +30,7 @@ export const store = configureStore({
     adminProductReducer,
     adminUserReducer,
     adminFaqReducer,
+    adminFeedbackReducer,
     domainReducer,
     serviceReducer,
     productReducer,

@@ -9,6 +9,7 @@ import {
   ProjectOutlined,
   ScheduleOutlined,
   ShopOutlined,
+  StarOutlined,
   TeamOutlined,
 } from '@ant-design/icons';
 import { Col, Menu, Row } from 'antd';
@@ -26,6 +27,7 @@ const adminMenu = [
   { label: <Link to="/admin/domain">Domain</Link>, key: 'domain', icon: <AppstoreOutlined /> },
   { label: <Link to="/admin/service">Service</Link>, key: 'service', icon: <AppstoreOutlined /> },
   { label: <Link to="/admin/faq">Faq</Link>, key: 'faq', icon: <CommentOutlined /> },
+  { label: <Link to="/admin/feedback">Feedback</Link>, key: 'feedback', icon: <StarOutlined /> },
 ];
 
 const AdminPage = () => {

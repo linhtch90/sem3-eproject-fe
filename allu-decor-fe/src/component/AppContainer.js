@@ -11,6 +11,7 @@ import AdminContactInfo from './AdminContactInfo';
 import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
 import AdminFaq from './AdminFaq';
+import AdminFeedback from './AdminFeedback';
 import AdminHome from './AdminHome';
 import AdminInvoiceManagement from './AdminInvoiceManagement';
 import AdminPage from './AdminPage';
@@ -64,6 +65,7 @@ const AppContainer = () => {
                 <Route path="service" element={<AdminService />} />
                 <Route path="user" element={<AdminUser />} />
                 <Route path="faq" element={<AdminFaq />} />
+                <Route path="feedback" element={<AdminFeedback />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>
