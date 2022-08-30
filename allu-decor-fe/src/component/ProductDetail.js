@@ -24,7 +24,7 @@ const ProductDetail = () => {
   }, []);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(productDetail.id));
+    dispatch(addToCart(productDetail));
   };
 
   const handleFeedbackChange = (e) => {
