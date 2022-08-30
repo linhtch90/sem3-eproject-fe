@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ScheduleOutlined } from '@ant-design/icons';
 import { Button, Col, notification, Row, Typography } from 'antd';
 
 import { createInvoice } from '../feature/invoice/InvoiceSlice';
@@ -106,8 +107,8 @@ const ProductCart = () => {
             <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: 16, marginBottom: 16 }}>
-          <Button type="primary" shape="round" onClick={handleCreateInvoice}>
+        <Row justify="center" style={{ marginTop: 16, marginBottom: 128 }}>
+          <Button type="primary" shape="round" onClick={handleCreateInvoice} icon={<ScheduleOutlined />}>
             Create Order
           </Button>
         </Row>
