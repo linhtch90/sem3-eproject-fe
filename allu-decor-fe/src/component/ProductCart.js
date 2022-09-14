@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ScheduleOutlined } from '@ant-design/icons';
 import { Button, Col, notification, Row, Typography } from 'antd';
 
+import { resetCart } from '../feature/cart/CartSlice';
 import { createInvoice } from '../feature/invoice/InvoiceSlice';
 import shoppingImage from '../images/shopping/shopping.webp';
 
@@ -22,6 +23,7 @@ export const InvoiceStatus = {
 const ProductCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
+  const createdInvoiceId = useSelector((state) => state.invoiceReducer.createdInvoiceId);
   const user = useSelector((state) => state.userReducer.user);
 
   const openNotification = () => {
@@ -32,7 +34,7 @@ const ProductCart = () => {
     });
   };
 
-  const handleCreateInvoice = () => {
+  const handleCreateInvoice = async () => {
     const userid = localStorage.getItem('userid');
 
     if (userid) {
@@ -42,7 +44,8 @@ const ProductCart = () => {
       let totalprice = 0;
       cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
 
-      dispatch(createInvoice({ createat, status, totalprice, userid, cartItems }));
+      await dispatch(createInvoice({ createat, status, totalprice, userid, cartItems }));
+      dispatch(resetCart());
     } else {
       openNotification();
     }
@@ -129,7 +132,7 @@ const ProductCart = () => {
                     textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
                   }}
                 >
-                  Please go shopping first!
+                  {!createdInvoiceId ? 'Please go shopping first!' : 'Create invoice successfully!'}
                 </Title>
               </Row>
               <Row justify="center">

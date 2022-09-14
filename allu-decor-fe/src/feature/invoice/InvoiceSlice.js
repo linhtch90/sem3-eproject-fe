@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { resetCart } from '../cart/CartSlice';
+
 const createInvoiceUrl = 'https://localhost:44302/api/invoice/createinvoice';
 const createInvoiceitemUrl = 'https://localhost:44302/api/invoiceitem/createinvoiceitem';
 const getAllInvoiceUrl = 'https://localhost:44302/api/invoice';

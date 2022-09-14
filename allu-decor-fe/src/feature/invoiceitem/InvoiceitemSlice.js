@@ -41,12 +41,18 @@ export const getAllItemsByInvoiceId = createAsyncThunk('/api/invoiceitem/byinvoi
 export const invoiceitemSlice = createSlice({
   name: 'domainSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    resetInvoiceItems: (state) => {
+      state.invoiceitems = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllItemsByInvoiceId.fulfilled, (state, action) => {
       state.invoiceitems = action.payload;
     });
   },
 });
+
+export const { resetInvoiceItems } = invoiceitemSlice.actions;
 
 export default invoiceitemSlice.reducer;
