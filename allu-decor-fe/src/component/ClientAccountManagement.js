@@ -15,6 +15,10 @@ const ClientAccountManagement = () => {
   const [form] = Form.useForm();
 
   const userAccount = useSelector((state) => state.userReducer.userAccount);
+  const updateUserStatus = useSelector((state) => state.adminUserReducer.updateUserStatus);
+  const updateUserWithoutPasswordStatus = useSelector(
+    (state) => state.adminUserReducer.updateUserWithoutPasswordStatus
+  );
 
   React.useEffect(() => {
     dispatch(getUserById({ id: localStorage.getItem('userid') }));
@@ -27,10 +31,10 @@ const ClientAccountManagement = () => {
     }
   }, [userAccount]);
 
-  const handleOnFinishUpdate = (values) => {
+  const handleOnFinishUpdate = async (values) => {
     const { firstname, lastname, address, district, city, phone, email, password } = values;
     if (password) {
-      dispatch(
+      await dispatch(
         updateUser({
           id: localStorage.getItem('userid'),
           firstname,
@@ -43,8 +47,11 @@ const ClientAccountManagement = () => {
           password,
         })
       );
+      if (updateUserStatus === 'ok') {
+        navigate('user/updateusersuccess');
+      }
     } else {
-      dispatch(
+      await dispatch(
         updateUserWithoutPassword({
           id: localStorage.getItem('userid'),
           firstname,
@@ -56,6 +63,9 @@ const ClientAccountManagement = () => {
           email,
         })
       );
+      if (updateUserWithoutPasswordStatus === 'ok') {
+        navigate('user/updateusersuccess');
+      }
     }
   };
 

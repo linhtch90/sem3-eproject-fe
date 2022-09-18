@@ -35,6 +35,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UnauthorizedPage from './UnauthorizedPage';
 import UserSignUpSuccess from './UserSignUpSuccess';
+import UserUpdateSuccess from './UserUpdateSuccess';
 
 import styles from '../css/AppContainer.module.css';
 
@@ -79,6 +80,7 @@ const AppContainer = () => {
               <Route path="signup" element={<SignUp />} />
               <Route path="account" element={<ClientAccountManagement />} />
               <Route path="user/createusersuccess" element={<UserSignUpSuccess />} />
+              <Route path="account/user/updateusersuccess" element={<UserUpdateSuccess />} />
               <Route path="unauthorized" element={<UnauthorizedPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>

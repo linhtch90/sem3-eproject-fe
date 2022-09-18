@@ -10,7 +10,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const signUpUrl = 'https://localhost:44302/api/user';
+  const signUpUrl = 'https://localhost:44302/api/user/createuser';
 
   const handleOnFinish = async (values) => {
     const response = await axios({
@@ -98,7 +98,14 @@ const SignUp = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+        <Form.Item
+          label="Phone"
+          name="phone"
+          rules={[
+            { required: true, message: 'Please input phone!' },
+            { pattern: new RegExp(/\d{10}/), message: 'Phone number must be a string of 10 digits' },
+          ]}
+        >
           <Input />
         </Form.Item>
 

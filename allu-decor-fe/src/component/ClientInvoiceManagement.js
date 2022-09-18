@@ -95,7 +95,12 @@ const ClientInvoiceManagement = () => {
                 ))}
               </Steps>
               <Row justify="center" style={{ marginTop: 32, marginBottom: 32 }}>
-                <Button type="primary" shape="round" onClick={rejectInvoice}>
+                <Button
+                  type="primary"
+                  shape="round"
+                  onClick={rejectInvoice}
+                  disabled={currentInvoiceStatusIndex >= 3 ? true : false}
+                >
                   Reject Invoice
                 </Button>
               </Row>

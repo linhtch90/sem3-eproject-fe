@@ -202,11 +202,25 @@ const AdminUser = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please input phone!' }]}>
+            <Form.Item
+              label="Phone"
+              name="phone"
+              rules={[
+                { required: true, message: 'Please input phone!' },
+                { pattern: new RegExp(/\d{10}/), message: 'Phone number must be a string of 10 digits' },
+              ]}
+            >
               <Input />
             </Form.Item>
 
-            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input email!' }]}>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: 'Please input an email!' },
+                { type: 'email', message: 'Email pattern is not valid!' },
+              ]}
+            >
               <Input />
             </Form.Item>
 

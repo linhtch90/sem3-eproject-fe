@@ -26,6 +26,12 @@ const ProductCart = () => {
   const createdInvoiceId = useSelector((state) => state.invoiceReducer.createdInvoiceId);
   const user = useSelector((state) => state.userReducer.user);
 
+  const invoiceTotalPrice = React.useMemo(() => {
+    let sum = 0;
+    cartItems.map((item) => (sum += item.totalprice));
+    return sum;
+  }, [cartItems]);
+
   const openNotification = () => {
     notification.info({
       message: `Please Sign In`,
@@ -105,11 +111,39 @@ const ProductCart = () => {
                   textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
                 }}
               >
-                Shipping Address
+                Total Price
               </Title>
-              <Title level={4}>Address: {localStorage.getItem('userAddress')}</Title>
-              <Title level={4}>District: {localStorage.getItem('userDistrict')}</Title>
-              <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
+              <Title
+                level={2}
+                style={{
+                  color: '#D65D0E',
+                  fontSize: '3rem',
+                  fontWeight: 'bolder',
+                  textAlign: 'left',
+                }}
+              >
+                {invoiceTotalPrice} USD
+              </Title>
+
+              {localStorage.getItem('userAddress') ? (
+                <>
+                  <Title
+                    level={2}
+                    style={{
+                      color: '#076678',
+                      fontSize: '4rem',
+                      fontWeight: 'bolder',
+                      textAlign: 'left',
+                      textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+                    }}
+                  >
+                    Shipping Address
+                  </Title>
+                  <Title level={4}>Address: {localStorage.getItem('userAddress')}</Title>
+                  <Title level={4}>District: {localStorage.getItem('userDistrict')}</Title>
+                  <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
+                </>
+              ) : null}
             </Col>
           </Row>
           <Row justify="center" style={{ marginTop: 16, marginBottom: 128 }}>
@@ -132,7 +166,7 @@ const ProductCart = () => {
                     textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
                   }}
                 >
-                  {!createdInvoiceId ? 'Please go shopping first!' : 'Create invoice successfully!'}
+                  {!createdInvoiceId ? 'Please go shopping first!' : 'The cart is empty now!'}
                 </Title>
               </Row>
               <Row justify="center">
